@@ -144,10 +144,7 @@
 %% ============================================================
 \newpage
 \section{LIST OF EQUATIONS}\label{s:equations}
-
-%% ============================================================
-\newpage
-\section{LIST OF SYMBOLS}\label{s:symbols}
+%\listofequations
 
 %% ============================================================
 \newpage
@@ -155,25 +152,24 @@
 \setcounter{page}{1}
 \section{INTRODUCTION}\label{s:introduction}
 
-Obstacle avoidance is a crucial capability for Autonomous Ground Vehicles (AGVs) of the future. This refers to a ground vehicle's ability to sense its surrounding environment, develop an optimal path around the obstacles in the environment, generate optimal control commands to satisfy that path, and physically navigate around the obstacles safely and to a desired endpoint. Safety is defined as avoiding collisions as well as enforcing limitations on excessive sideslip or tire lift-off. An ideal control algorithm is one that is capable of pushing a vehicle to its performance limits by using knowledge of its dynamic capabilities and surrounding environmental conditions, while still enforcing strict safety requirements. Although previous work has demonstrated use of Model Predictive Control (MPC) algorithms for obstacle avoidance on wheeled vehicles, more work is required to test the fidelity of these algorithms and determine where improvements are needed. One area in which MPC algorithms have yet to be tested is their ability to control a wheeled vehicle on granular terrain. Up to this point, the terrain has been assumed to be rigid and flat. Performance of MPC algorithms on deformable terrain raise additional questions. Do the current most commonly used vehicle models perform successfully within an MPC algorithm on deformable terrain? The present work evaluates, through numerical simulation, the robustness and validity of an MPC algorithm with different vehicle models in an environment more similar to what an off-road military vehicle would experience in combat.
-
-The goal of this paper is to present the results of this study to understand how model fidelity of the controller model affects overall performance of the obstacle avoidance controller. Simulating a vehicle on granular terrain in such scenarios introduces additional challenges related to the sheer number of necessary particles required to properly model the desired terrain patch. This challenge has been addressed by employing a simulation framework for granular terrain described later in this paper.
-
-The present study has the following three objectives:
-\begin{enumerate}
-\item
-Study the performance of the MPC Controller on granular terrain as compared to that on rigid terrain.
-\item
-Analyze the impact of fidelity of the internal controller model on speed and performance of the obstacle avoidance controller.
-\item
-Showcase the potential of controller testing in a high fidelity virtual test environment with {\CHRONO} to assist with initial control algorithm development before physical implementation for vehicular applications.
-\end{enumerate}
+Obstacle avoidance is a crucial capability for Autonomous Ground Vehicles (AGVs) of the future. This refers to a ground vehicle's ability to sense its surrounding environment, develop an optimal path around the obstacles in the environment, generate optimal control commands to satisfy that path, and physically navigate around the obstacles safely and to a desired endpoint. Safety is defined as avoiding collisions as well as enforcing limitations on excessive sideslip or tire lift-off. An ideal control algorithm is one that is capable of pushing a vehicle to its performance limits by using knowledge of its dynamic capabilities and surrounding environmental conditions, while still enforcing strict safety requirements. Although previous work has demonstrated use of Model Predictive Control (MPC) algorithms for obstacle avoidance on wheeled vehicles, more work is required to test the fidelity of these algorithms and determine where improvements are needed. One area in which MPC algorithms have yet to be tested is their ability to control a wheeled vehicle on granular terrain. Up to this point, the terrain has been assumed to be rigid and flat. Performance of MPC algorithms on deformable terrain raise additional questions. Do the current most commonly used vehicle models perform successfully within an MPC algorithm on deformable terrain? The present work evaluates, through numerical simulation, the robustness and validity of an MPC algorithm with different vehicle models in an environment more similar to what an off-road military vehicle would experience in combat. This controller could be applied to any car-like wheeled vehicle.
 
 The remainder of this paper is organized as follows.  In Section~\ref{s:background} we provide overviews of the MPC-based local obstacle avoidance algorithm and the {\CHRONO} multiphysics package used as the test environment. In Section~\ref{s:methodology} we describe the {\ChronoVehicle} HMMWV vehicle model used in this study as the plant model to be controlled and our proposed method for simulating a vehicle driving on deformable terrain over large distances. Then, the specific MPC LIDAR-based local obstacle avoidance controller used for this study is presented. We introduce the different simplified, lower-fidelity analytical vehicle models used in the MPC algorithm to predict the {\CHRONO} vehicle behavior. We also provide descriptions of the test cases considered for this study and a summary of the metrics used to compare performance of the various tested combinations. In Section~\ref{s:results} we present the results of the tests outlined in the previous section and provide comparisons when the internal controller vehicle model is varied and when the terrain is changed from rigid to granular. Section~\ref{s:conclusion} wraps up the paper and presents potential future work based on the results of this study.
+\todo[inline]{fix this paper organization section}
 
 %% ------------------------------------------------------------
 
-\subsection{ProblemSummary}\label{ss:ProblemSummary}
+\subsection{Problem Summary}\label{ss:ProblemSummary}
+
+Regarding the MPC control algorithm, many studies have been performed previously to validate its potential to develop local obstacle avoidance controllers. Specifically, studies by Liu, Jayakumar, Overholt, Stein, and Ersal explored the implementation of an MPC local obstacle avoidance algorithm in AGV’s. The research group tested a steering controller for an AGV on rigid flat terrain \cite{ModelFidelity2013}, then a combined steering and speed controller \cite{SpeedSteer2015}, and finally studied the role of model fidelity in the implementation of the MPC algorithm \cite{ModelFidelity2016} to understand how detailed the controller model needs to be to effectively and quickly control the vehicle. However, in these studies and those performed before them, the AGV has been tested on rigid flat terrain, an assumption which does not hold when driving a vehicle in reality. Therefore, the research for this thesis will perform  studies on the promising models from \cite{ModelFidelity2016} and test them on granular terrain to understand how changing the ground from rigid and flat to granular affects the controlled AGV performance.
+
+This research also addresses another larger problem for the military. The North Atlantic Treaty Organization (NATO) is seeking to replace their current NATO Reference Mobility Model (NRMM) \cite{NATONRMM}. The current NRMM is an empirically based computer model developed during the 1970s, which computes tactical mobility metrics by correlating engineering level performance of various ground vehicle systems with different terrain conditions, allowing for successful comparison of these ground systems and capabilities over varied terrain surfaces, obstacles, vegetation, weather scenarios, grades, and other features which can adversely impact ground vehicle performance. NATO seeks to replace this older model with a new physics-based computer simulation solution which can still answer the same questions as the older model, but can then be extended past situations with only empirical results. One of the key areas of work in this group effort is the ability to develop and deliver to the vehicle go-nogo maps of upcoming terrain, either from recent satellite imagery or other sorts of sensors. With this research, the development of this simulation and test will seek to control an AGV only with the sensor data or terrain inputs provided by the mission planner. Any research achieved relating to vehicle mobility across a variety of terrains can help with the NRMM effort. 
+
+Significant studies have been carried out and work accomplished testing the MPC Algorithm and validating Chrono as a viable program for Multibody simulations. However, the two topics have not combined to be tested together. The MPC algorithm has been tested on rigid flat terrain, yet with Chrono Parallel one has the ability to simulate granular terrain if desired with reasonable runtimes. Therefore, one can develop a simulation of a vehicle on granular terrain with scattered obstacles in Chrono Parallel, and then use the MPC algorithm from \cite{ModelFidelity2016} to control that simulated vehicle. Doing so would benefit both the simulations field and the controls field. By bridging the gap between these two areas, those designing the control algorithms have a quicker and less expensive method of testing a control algorithm on a full vehicle on a variety of landscapes to gain quick understanding of how well their controller behaves. On the other hand, developing this sort of simulation improves the amount of applications Chrono Parallel can be used in. This research has performd higher fidelity testing of the control algorithm than has previously been accomplished, a step which is necessary if this algorithm is to eventually be implemented in an actual vehicle. 
+
+	The uniqueness of this research comes from two areas: controls and simulation. Most Chrono simulations created so far do not test any sort of complex control algorithm for an autonomous vehicle. More interest is placed in understanding vehicle mobility over different terrains. However, this research does test an autonomous vehicle and its ability to navigate around local sensed obstacles. Therefore, a frmework has been developed to allow the simulated vehicle to “sense” obstacles in the area and generate its own commands while it navigates across the terrain instead of relying on externally supplied commands. Can this MPC control algorithm generate the appropriate commands to navigate a vehicle through an obstacle field? On the controls side, this is a unique effort as well. As mentioned, the MPC algorithm has yet to be tested on granular terrain. However, considering an AGV will be driving off road on soil or sand, this is an appropriate next step for testing. This research answers the question of if simulation can be used to effectively test an autonomous vehicle on granular terrain. Computationally this requires a lot of resources, but if a team can test their control algorithm on the computer before going out to the test field with a vehicle, this could save both time and money for that team.
+
+\todo[inline]{copied from thesis outline, needs to be updated}
 
 %% ------------------------------------------------------------
 
@@ -227,6 +223,7 @@ Gray, Ali, Gao, Borrelli, and Hedrick used a MPC algorithm to maintain driver sa
 
 Beal and Gerdes proposed a solution to the issue of vehicle stabilization control near the limits of handling \cite{Beal&Gerdes2013}. Normally, an ESC works by using a linear model of a vehicle to predict driver intent and when the vehicle deviates past a threshold of the allowed deviation between driver intent and vehicle behavior, then the controller activates and stabilizes the vehicle. However, this method does not work when the vehicle is being operated near the stable vehicle limits such as by an experienced driver because the linearized vehicle model is linearized about a conservative point for production level cars. The vehicle behavior near its dynamic limits is nonlinear and does not match the linearized model. Therefore, an MPC based controller was proposed and tested that operates at two levels and quickly enough for realtime implementation. The controller has two objectives. The first is to keep the vehicle inside of the safe-handling envelope and respond appropriately in case the vehicle leaves this safe envelope. The second objective is to allow the controller to track the driver's intended trajectory. Overall the controller was able to successfully achieve these objectives through experiments with Stanford's PI vehicle testbed \cite{Beal&Gerdes2013}.
 
+\todo[inline]{finish lit review}
 
 
 
@@ -236,6 +233,22 @@ Beal and Gerdes proposed a solution to the issue of vehicle stabilization contro
 %% ------------------------------------------------------------
 
 \subsection{Objectives and Methodology}\label{ss:ObjectivesMethodology}
+
+The goal of this research is to understand how model fidelity of the controller model affects overall performance of the obstacle avoidance controller. This leads to a better understanding of vehicle dynamics and performance on granular terrain as well as promotes the development of a controller designed for general terrain travel in the future. Simulating a vehicle on granular terrain in such scenarios introduces additional challenges related to the sheer number of necessary particles required to properly model the desired terrain patch. This challenge has been addressed by employing a simulation framework for granular terrain described later in this paper.
+
+The present study has the following three objectives:
+\begin{enumerate}
+\item
+Study the performance of the MPC Controller on granular terrain as compared to that on rigid terrain.
+\item
+Analyze the impact of fidelity of the internal controller model on speed and performance of the obstacle avoidance controller.
+\item
+Showcase the potential of controller testing in a high fidelity virtual test environment with {\CHRONO} to assist with initial control algorithm development before physical implementation for vehicular applications.
+\end{enumerate}
+
+From previous literature research, this MPC algorithm has been tested successfully on flat rigid terrain. However, using Chrono Parallel one has the capabilities to develop a simulation of a vehicle on hilly, deformable, and even granular terrain. In this research, Chrono Parallel is used to develop a simulation of a AGV driving on customizable granular terrain through a user defined obstacle field to a defined target location. Chrono already possesses the ability to create new geometries easily with a modular framework, so one will then be able to easily create their own obstacle field for the vehicle to maneuver through. Using theory and developments from \cite{ModelFidelity2016}, the MPC algorithm has been implemented in the simulation to determine optimal steering commands for the AGV. Tests similar to those executed in \cite{ModelFidelity2016} were conducted within this simulation on rigid flat terrain for the two models presented previously to confirm the controller operates appropriately. The algorithm was then tested on granular terrain to understand how controlled vehicle performance changes on granular terrain versus previously tested rigid ground simulations. The MPC algorithm solves a very large optimization problem to determine the quickest safe path to the destination. An exhaustive search based method was used to solve this optimal control problem. Improvements were explored to boost vehicle performance on granular terrain and are discussed at the end of this paper.
+
+/todo[inline]{copied from thesis outline, adjust}
 
 %% ============================================================
 
@@ -266,7 +279,7 @@ In addition, {\ChronoVehicle} offers a variety of tire models and associated tem
 
 %% ------------------------------------------------------------
 
-\subsection{MPC Based Local Obstacle Avoidance : History and Current Algorithm }\label{MPC}
+\subsection{MPC LIDAR-Based Local Obstacle Avoidance : History and Current Algorithm }\label{MPC}
 
 
 \begin{figure*}
@@ -302,6 +315,9 @@ For this study, the system to be controlled is an AGV. Consider an AGV located i
 
 The planar LIDAR sensor, mounted at the front center location of the vehicle, returns the closest obstacle boundary in all radial directions of the sensor at an angular resolution $\epsilon$. The sensor has a maximum range past which it cannot sense any obstacles. Therefore, if the closest obstacle boundary is greater than the LIDAR radius $R_{LIDAR}$, then the sensor returns $R_{LIDAR}$. The LIDAR sensor range is [$0^\circ$, $180^\circ$], with $90^\circ$ being the vehicle heading direction. Since the AGV considered here is driving along level ground, whether granular or rigid, a planar LIDAR sensor is sufficient. The sensor is assumed to have no delay and zero noise and can therefore instantaneously generate a safe area polygon assembled from the returned points from the LIDAR. An overhead view of the AGV encountering an obstacle and the generated LIDAR safe area polygon are presented in Fig.~\ref{fig:LIDARExample}. 
 %
+In this research, all of the obstacles are upright cylinders so a ray-circle intersection algorithm is used to determine when each LIDAR ray intersects with a nearby obstacle. 
+
+\todo[inline]{insert description of the ray circle intersection algorithm used}
 
 For the purpose of these simulations, the only outputs of the MPC algorithm are the steering signals. As shown in Fig.~\ref{fig:MPC_schematic}, the MPC algorithm is made up of the internal controller vehicle model, the cost function and constraints, and the dynamic optimizer. The internal controller vehicle model predicts the future states of the AGV for a given steering sequence. Herein, the internal controller vehicle model is varied from test to test between a 2-DOF vehicle model and a 14-DOF vehicle model, as detailed in further sections. Cost functions and constraints are used to formulate the optimal control problem using the equations from the vehicle model, and the resulting optimal control problem is solved using dynamic optimization.
 
@@ -361,16 +377,20 @@ As mentioned previously, exhaustive search space~\cite{ModelFidelity2016} is use
 	\label{fig:PossiblePaths}
 \end{figure}
 
+\todo[inline]{insert description of the point in polygon algorithm used for this study}
+ 
 %% ------------------------------------------------------------
 
 \subsection{Multi-DOF Vehicle Dynamics Models}\label{ss:IntModel}
 
-The vehicle models embedded in the MPC are simplifications of the full, multi-body based, {\CHRONO} wheeled vehicle model which is being controlled.  We consider two such models, providing different levels of fidelity, as described below.
+The vehicle models embedded in the MPC are simplifications of the full, multi-body based, {\CHRONO} wheeled vehicle model which is being controlled.  Two models were considered initially, providing different levels of fidelity, as described below.
 
 %% ------------------------------------------------------------
 
 \subsubsection{2-DOF Vehicle Model}\label{sss:2DOFModel}
 The standard vehicle model used in recently developed MPC obstacle avoidance algorithms such as~\cite{ModelFidelity2016} is the 2-DOF yaw plane vehicle model. These models normally either assume constant cornering stiffness or the nonlinear Pacejka Magic Formula Tire Model~\cite{Pacejka1997} to predict the ground tire interaction forces. For this study, the Pacejka Magic Formula is used to predict tire forces in the vehicle models.   
+
+\todo[inline]{insert brief description of the Pacejka Magic Formula Tire Prediction Forces, maybe provide only the equations and leave the derivation to the sources}
 
 A visual representation of the 2-DOF yaw plane vehicle model can be found in Fig.~\ref{fig:2DOF}. The 2-DOF model is described by the following first-order ordinary differential equations:
 
@@ -390,7 +410,7 @@ A visual representation of the 2-DOF yaw plane vehicle model can be found in Fig
 \dot{y} = U_0\sin{\psi}+\left(V+L_fr\right)\cos{\psi} \,,
 \end{equation}
 %
-where $F_{y,f}$ and $F_{y,r}$ are the lateral tire forces at the front and rear axles, respectively. $U_0$ and $V$ are the longitudinal speed and lateral speed of the vehicle in the vehicle's coordinate frame. $\psi$ is the yaw angle and $r$ is the yaw rate. $\left(x,y\right)$ represent the front center location of the vehicle expressed in global coordinates. $M$ is vehicle mass, $I_{zz}$ is the moment of inertia of the vehicle, $L_f$ is the distance from the front axle to the vehicle CoG, and $L_r$ is the distance from the rear axle to the vehicle CoG. For this study, the model is constrained to a constant longitudinal speed. Then the planar 3-DOF body with one constraint results in the 2-DOF model used for this study.
+where $F_{y,f}$ and $F_{y,r}$ are the lateral tire forces at the front and rear axles, respectively. $U_0$ and $V$ are the longitudinal speed and lateral speed of the vehicle in the vehicle's coordinate frame. $\psi$ is the yaw angle and $r$ is the yaw rate. $\left(x,y\right)$ represent the front center location of the vehicle expressed in global coordinates. $M$ is vehicle mass, $I_{zz}$ is the moment of inertia of the vehicle, $L_f$ is the distance from the front axle to the vehicle CoG, and $L_r$ is the distance from the rear axle to the vehicle CoG. For this research, the model is constrained to a constant longitudinal speed. Then the planar 3-DOF body with one constraint results in the 2-DOF model used for this study.
 
 \begin{figure}
 	\centering
@@ -406,19 +426,18 @@ A 14-DOF model is often used in studies such as these to test the obstacle avoid
 
 The 14-DOF vehicle model consists of one sprung mass connected above four unsprung masses~\cite{RollStudies2007}. The sprung mass is allowed to roll, pitch, and yaw while also displacing laterally, vertically, and longitudinally. This sprung mass contributes six DOF to the model. Each of the four wheels are allowed to bounce vertically and rotate about the wheel horizontal axis. The front two wheels are also free to steer. Each wheel then contributes two DOF to the fourteen DOF model. The model is constrained at a constant longitudinal speed of 8.1 m/s. The equations used for this model, as well as their derivation can be found in~\cite{RollStudies2007}.
 
-%% ------------------------------------------------------------
-
-\subsection{Pacejka Magic Formula Tire Model}\label{Pacejka}
+\todo[inline]{consider actually putting in the equations used for the 14DOF vehicle model here}
 
 %%-------------------------------------------------------------
 
-\subsection{Optimization Problem}\label{Optimization}
+\subsection{Optimization Problem: Exhaustive Search Space}\label{ss:Optimization}
+
+\todo[inline]{insert description of the exhaustive search space method used to find the optimal solution in this study}
+
 
 %%============================================================
 
-\section{Experimental Setup}\label{ExpSetup}
-
-The physics modeling and simulation capabilities are provided by the multiphysics open-source package {\CHRONO}~\cite{Chrono2016}. The core functionality of {\CHRONO} provides support for the modeling, simulation, and visualization of rigid multibody systems, with additional capabilities offered through optional modules. These modules provide support for additional classes of problems (e.g., finite element analysis and fluid-solid interaction), for modeling and simulation of specialized systems (such as ground vehicles and granular dynamics problems), or provide specialized parallel computing algorithms (multi-core, GPU, and distributed) for large-scale simulations.
+\section{Experimental Setup}\label{s:ExpSetup}
 
 \subsection{Evaluation Metrics}\label{ss:Metrics}
 Five evaluation metrics will be used to compare one test performance to the other. First, all test runs will be compared based on the time to reach the target, $T_{target}$ to determine which controller leads the vehicle to the target point quickest. Second, the closest distance the vehicle reaches to any obstacle, $d_{min}$, will be measured. Third, the control effort will be calculated and compared between test cases. The better test case will have a lower controller effort value. Finally, the maximum and average lateral accelerations will be calculated and compared. The accelerations are calculated at the driver's position in the chassis. Using the DEM-P method of simulation results in noisy acceleration data. To address this, acceleration data is filtered to remove noise. These five evaluation metrics provide a consistent methodology for comparing one test case with another, regardless of the terrain type and underlying analytical controller model.
@@ -446,11 +465,7 @@ For mobility studies on deformable terrain, provided that the tire inflation pre
 
 %%-------------------------------------------------------------
 
-\subsection{Validating Chrono Simulation with Previously Published Results}\label{Validate}
-
-%%-------------------------------------------------------------
-
-\subsection{Simulation Parameters}\label{SimParameters}
+\subsection{Simulation Parameters}\label{ss:SimParameters}
 
 \begin{table}
 \begin{center}
@@ -540,11 +555,11 @@ The following vehicle parameters are maintained throughout all of the executed t
 
 %%-------------------------------------------------------------
 
-\subsection{Rigid Terrain Simulation}\label{RigidSim}
+\subsection{Rigid Terrain Simulation}\label{sss:RigidSim}
 
 %%-------------------------------------------------------------
 
-\subsection{Granular Terrain Simulation}\label{GranSim}
+\subsection{Granular Terrain Simulation}\label{sss:GranSim}
 
 Due to the large-scale nature of the simulations in this study, generating granular particles distributed across the entire obstacle field is both computationally exhausting and unreasonable. Instead, we adopt a moving-patch approach. Consider an AGV on a large terrain patch of $100$ by $100$ meters. Since we are primarily interested in the vehicle behavior and performance and not explicitly in the terrain behavior, we assume only a small patch of granular terrain underneath and around the vehicle is significant. This idea promoted the development of a relocating granular patch which enables simulations of a vehicle traversing granular terrain over a large area, without the need to generate particles everywhere throughout that area. 
 
