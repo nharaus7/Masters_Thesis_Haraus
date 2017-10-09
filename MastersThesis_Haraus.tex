@@ -1,13 +1,17 @@
-\documentclass[12pt,onecolumn]{article}
+\documentclass[12pt,onecolumn]{report}
 
 % Page dimensions
-\setlength{\hoffset}{-1in}
-\setlength{\voffset}{-1in}
-%\setlength{\headsep}{-0.2in}
+\setlength{\voffset}{0in}
+\setlength{\hoffset}{0.5in}
+\setlength{\headsep}{0in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\footskip}{0in}
 
-\setlength{\oddsidemargin}{1.0in}
-\setlength{\evensidemargin}{1.0in}
-\setlength{\textwidth}{6.5in}
+
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.0in}
 \setlength{\textheight}{9in}
 
 %\setlength{\columnsep}{0.3in}
@@ -25,8 +29,69 @@
 %\usepackage[hidelinks]{hyperref}
 \usepackage{hyperref}
 \usepackage{sectsty}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{xcolor}
 
 \usepackage{morefloats}
+
+\usepackage{background}
+\usepackage{kantlipsum}
+\usepackage{tocloft}
+\usepackage{tocloft}
+\renewcommand{\contentsname}{\hfill\normalsize TABLE OF CONTENTS\hfill}   
+\renewcommand{\listtablename}{\hfill\normalsize LIST OF TABLES\hfill}
+\renewcommand{\listfigurename}{\hfill\normalsize LIST OF FIGURES\hfill}
+
+\backgroundsetup{
+        position=current page.north east,
+        nodeanchor=north east,
+        hshift=-1in,            
+        vshift=-0.5in,
+        angle=0,
+        firstpage=false,
+        scale=1,
+        opacity=1,
+        color=black,
+        contents={\thepage},
+}
+\pagestyle{empty}
+
+
+\newlength{\normalparindent}
+\setlength{\normalparindent}{\parindent}
+\raggedright
+\setlength{\parindent}{\normalparindent}
+
+
+\usepackage{titlesec}
+%\titleformat{<command>}[<shape>]{<format>}{<label>}{<sep>}{<before-code>}[<after-code>]
+\titleformat{\chapter}[hang]
+{\normalfont\raggedright}
+{\thechapter}
+{1ex}
+{}
+
+\titleformat{\section}[hang]
+{\normalfont}
+{\thesection}
+{1ex}
+{}
+
+\titleformat{\subsection}[hang]
+{\normalfont}
+{\thesubsection}
+{1ex}
+{}
+
+\titlespacing{\chapter}{0in}{0.0in}{0.1in}
+\titlespacing{\section}{0in}{0.1in}{0.1in}
+\titlespacing{\subsection}{0in}{0.1in}{0.1in}
+
+\usepackage{setspace}
+\usepackage[pass,paperwidth=8.5in,paperheight=11in]{geometry}
+% Specify different font for section headings
 
 % Packages for notes, testing, etc.
 \usepackage{todonotes}
@@ -53,49 +118,38 @@
 
 \definecolor{my-gray}{gray}{0.4}
 
+
+
 % First page header
 \fancypagestyle{firststyle} {
-	\lhead{}
-	\rhead{
-	\footnotesize
-	\textbf{2017 NDIA GROUND VEHICLE SYSTEMS ENGINEERING AND TECHNOLOGY SYMPOSIUM}\\
-	\textbf{\sc Modeling \& Simulation, Testing and Validation (MSTV) Technical Session}\\
-	\textbf{\sc August 8-10, 2017 -- Novi, Michigan}	
-	}
-	\chead{}
-	%
-	\lfoot{}
-	\cfoot{}
-	\rfoot{}
+	\fancyhf{}
+	\fancyhead[R]{}
+}
+
+\fancypagestyle{plain}{%
+   \fancyhf{}                          % clear all header and footer fields
+   \renewcommand{\headrulewidth}{0pt}
+   \renewcommand{\footrulewidth}{0pt}
 }
 
 % All other pages (header and footer)
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{
-	\color{my-gray}
-	\footnotesize Proceedings of the 2017 Ground Vehicle Systems Engineering and Technology Symposium (GVSETS)
-	}
-\cfoot{
-	\color{my-gray}
-	\footnotesize
-	{\FooterTitle}\\
-	Page \thepage~of~\pageref{LastPage}
-}
+\fancyhead[R]{\thepage}
+\fancyfoot[R]{}
 
-\renewcommand{\headrulewidth}{0pt}
+\doublespacing %might need to fix this
+
 
 % Font and styles for sections
 \allsectionsfont{\fontsize{12}{15}\selectfont}
 
-\renewcommand{\abstractname}{ABSTRACT}
-\renewcommand{\refname}{REFERENCES}
+\DeclareMathOperator*{\argminB}{argmin}
+
 
 %% ============================================================
-
-\title{\bf\large PERFORMANCE ANALYSIS OF CONSTANT SPEED LOCAL OBSTACLE AVOIDANCE CONTROLLER USING AN MPC ALGORITHM ON GRANULAR TERRAIN}
-
-\newcommand{\FooterTitle}{Performance analysis of obstacle avoidance algorithm on granular terrain}
+\font\myfont=cmr12 at 40pt
+\title{\myfont PERFORMANCE ANALYSIS OF CONSTANT SPEED LOCAL OBSTACLE AVOIDANCE CONTROLLER USING AN MPC ALGORITHM ON GRANULAR TERRAIN}
 
 \author{
 	{\bf Nicholas Haraus}\\
@@ -104,62 +158,106 @@
 	Milwaukee, WI
 }
 
-\newcommand{\MyAbstract}{
-	A Model Predictive Control (MPC) LIDAR-based constant speed local obstacle avoidance algorithm has been implemented on rigid terrain and granular terrain in {\CHRONO} to examine the robustness of this control method. 
+%% ============================================================
+\begin{document}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt}
+
+\pagenumbering{gobble}
+\onecolumn
+\begin{singlespacing}
+\begin{center}
+PERFORMANCE ANALYSIS OF CONSTANT SPEED LOCAL OBSTACLE\\ AVOIDANCE CONTROLLER USING AN MPC ALGORITHM\\ ON GRANULAR TERRAIN
+\\
+\vfill
+by\\
+\vspace{0.1in}
+Nicholas Haraus, B.S.M.E.
+\vfill
+A Thesis submitted to the Faculty of the Graduate School,\\
+Marquette University,\\
+in Partial Fulfillment of the Requirements for\\
+the Degree of Master of Science
+
+\vfill
+Milwaukee, Wisconsin\\
+\vspace{0.1in}
+December 2017
+\end{center}
+\end{singlespacing}
+\newpage
+
+%% ============================================================
+\begin{singlespacing}
+\begin{center}
+
+ABSTRACT\\
+PERFORMANCE ANALYSIS OF CONSTANT SPEED LOCAL OBSTACLE\\ AVOIDANCE CONTROLLER USING AN MPC ALGORITHM\\ ON GRANULAR TERRAIN\\
+
+\vspace{0.2in}
+
+Nicholas Haraus, B.S.M.E.\\
+\vspace{0.1in}
+
+Marquette University, 2017
+\end{center}
+
+\vspace{0.2in}
+
+A Model Predictive Control (MPC) LIDAR-based constant speed local obstacle avoidance algorithm has been implemented on rigid terrain and granular terrain in {\CHRONO} to examine the robustness of this control method. 
 	Provided LIDAR data as well as a target location, a vehicle can route itself around obstacles as it encounters them and arrive at an end goal via an optimal route.
 	Using {\CHRONO}, a multibody physics API, this controller has been tested on a complex multibody physics HMMWV model representing the plant in this study. A penalty-based DEM approach is used to model contacts on both rigid ground and granular terrain. We draw conclusions regarding the MPC algorithm performance based on its ability to navigate the {\CHRONO} HMMWV on rigid and granular terrain.  A novel simulation framework has been developed to efficiently simulate granular terrain for this application.
-}
+\vfill
+\end{singlespacing}
+\newpage
 
 %% ============================================================
 \pagenumbering{roman}
-\begin{document}
-\onecolumn
-\begin{titlepage}
-	\date{}
-	\maketitle             % full width title
-	\thispagestyle{firststyle}
-	\MyAbstract
-	\\\vspace{0.2in}
-\end{titlepage}
-
-
-%% ============================================================
-\section{ACKNOWLEDGEMENTS}\label{s:Acknowledgements}
+\setcounter{page}{1}
+\addcontentsline{toc}{chapter}{ACKNOWLEDGEMENTS}
+ACKNOWLEDGEMENTS\\
+\vspace{0.2in}
+Nicholas Haraus, B.S.M.E.\\
+\vspace{0.2in}
+\todo{insert acknowledgements}
 
 %% ============================================================
 \newpage
-\section{TABLE OF CONTENTS}\label{s:TableofContents}
+\begingroup
+\renewcommand{\vspace}[2]{}% Gobble 2 arguments after \vspace
 \tableofcontents
+\endgroup
+
+
 
 %% ============================================================
 \newpage
-\section{LIST OF TABLES}\label{s:tables}
+\begingroup
+\renewcommand{\vspace}[2]{}% Gobble 2 arguments after \vspace
+\addcontentsline{toc}{chapter}{LIST OF TABLES}
 \listoftables
-
+\endgroup
 %% ============================================================
 \newpage
-\section{LIST OF FIGURES}\label{s:figures}
+\begingroup
+\addcontentsline{toc}{chapter}{LIST OF FIGURES}
+\renewcommand{\vspace}[2]{}% Gobble 2 arguments after \vspace
 \listoffigures
-
+\endgroup
 %% ============================================================
-\newpage
-\section{LIST OF EQUATIONS}\label{s:equations}
-%\listofequations
 
-%% ============================================================
 \newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\section{INTRODUCTION}\label{s:introduction}
+\chapter{INTRODUCTION}\label{c:introduction}
 
 Obstacle avoidance is a crucial capability for Autonomous Ground Vehicles (AGVs) of the future. This refers to a ground vehicle's ability to sense its surrounding environment, develop an optimal path around the obstacles in the environment, generate optimal control commands to satisfy that path, and physically navigate around the obstacles safely and to a desired endpoint. Safety is defined as avoiding collisions as well as enforcing limitations on excessive sideslip or tire lift-off. An ideal control algorithm is one that is capable of pushing a vehicle to its performance limits by using knowledge of its dynamic capabilities and surrounding environmental conditions, while still enforcing strict safety requirements. Although previous work has demonstrated use of Model Predictive Control (MPC) algorithms for obstacle avoidance on wheeled vehicles, more work is required to test the fidelity of these algorithms and determine where improvements are needed. One area in which MPC algorithms have yet to be tested is their ability to control a wheeled vehicle on granular terrain. Up to this point, the terrain has been assumed to be rigid and flat. Performance of MPC algorithms on deformable terrain raise additional questions. Do the current most commonly used vehicle models perform successfully within an MPC algorithm on deformable terrain? The present work evaluates, through numerical simulation, the robustness and validity of an MPC algorithm with different vehicle models in an environment more similar to what an off-road military vehicle would experience in combat. This controller could be applied to any car-like wheeled vehicle.
 
-The remainder of this paper is organized as follows.  In Section~\ref{s:background} we provide overviews of the MPC-based local obstacle avoidance algorithm and the {\CHRONO} multiphysics package used as the test environment. In Section~\ref{s:methodology} we describe the {\ChronoVehicle} HMMWV vehicle model used in this study as the plant model to be controlled and our proposed method for simulating a vehicle driving on deformable terrain over large distances. Then, the specific MPC LIDAR-based local obstacle avoidance controller used for this study is presented. We introduce the different simplified, lower-fidelity analytical vehicle models used in the MPC algorithm to predict the {\CHRONO} vehicle behavior. We also provide descriptions of the test cases considered for this study and a summary of the metrics used to compare performance of the various tested combinations. In Section~\ref{s:results} we present the results of the tests outlined in the previous section and provide comparisons when the internal controller vehicle model is varied and when the terrain is changed from rigid to granular. Section~\ref{s:conclusion} wraps up the paper and presents potential future work based on the results of this study.
-\todo[inline]{fix this paper organization section}
+The remainder of this paper is organized as follows. The remainder Chapter \ref{c:intro} consists of the problem statement, a thorough literature review into the problem, and the objectives of this research based on the findings of the literature review. In Chapter~\ref{c:background} consists of theoretical background and overviews pertinent to this research. This chapter consists of sections presenting multibody dynamics, the penalty method, {\CHRONO} to handle the multibody dynamics, the MPC Controller development, the LIDAR model used, the Pacejka MagicFormula, and an overview of the exhaustive search algorithm used to solve this control problem. In this chapter are also the different simplified, lower-fidelity analytical vehicle models used in the MPC algorithm to predict the {\CHRONO} vehicle behavior for Experiment 1. Chapter~\ref{c:ExpSetup} describes the {\ChronoVehicle} HMMWV vehicle model used in this study as the plant model to be controlled and our proposed method for simulating a vehicle driving on deformable terrain over large distances. In this chapter the first numerical simulation used to analyze controllerperformance is outlined, detailing the different simulations that will be run, the evaluation metrics that will be used to compare them, and the hardware components of the computer used to perform these simulations. Descriptions of the test cases considered for this first experiment and a summary of the metrics used to compare performance of the various tested combinations are provided. Chapter~\ref{c:results} presents the results of the tests performed in Experiment 1 and provides comparisons when the internal controller vehicle model is varied and when the terrain is changed from rigid to granular. Chapter~\ref{c:improvedModel} presents a new intermediate vehicle model that uses terramechanics relations to better predict vehicle trajectories on granular terrain. This chapter also contains open loop comparisons to confirm this model does in fact predict more accurate granular terrain trajectories. Chapter \ref{c:Exp2} contains the description and results of a second experiment performed to test the new vehicle model within a controller. Chapter \ref{c:conclusion} wraps up the paper and presents potential future work based on the results of this study.
 
 %% ------------------------------------------------------------
 
-\subsection{Problem Summary}\label{ss:ProblemSummary}
+\section{Problem Summary}\label{s:ProblemSummary}
 
 Regarding the MPC control algorithm, many studies have been performed previously to validate its potential to develop local obstacle avoidance controllers. Specifically, studies by Liu, Jayakumar, Overholt, Stein, and Ersal explored the implementation of an MPC local obstacle avoidance algorithm in AGV’s. The research group tested a steering controller for an AGV on rigid flat terrain \cite{ModelFidelity2013}, then a combined steering and speed controller \cite{SpeedSteer2015}, and finally studied the role of model fidelity in the implementation of the MPC algorithm \cite{ModelFidelity2016} to understand how detailed the controller model needs to be to effectively and quickly control the vehicle. However, in these studies and those performed before them, the AGV has been tested on rigid flat terrain, an assumption which does not hold when driving a vehicle in reality. Therefore, the research for this thesis will perform  studies on the promising models from \cite{ModelFidelity2016} and test them on granular terrain to understand how changing the ground from rigid and flat to granular affects the controlled AGV performance.
 
@@ -167,13 +265,11 @@ This research also addresses another larger problem for the military. The North 
 
 Significant studies have been carried out and work accomplished testing the MPC Algorithm and validating Chrono as a viable program for Multibody simulations. However, the two topics have not combined to be tested together. The MPC algorithm has been tested on rigid flat terrain, yet with Chrono Parallel one has the ability to simulate granular terrain if desired with reasonable runtimes. Therefore, one can develop a simulation of a vehicle on granular terrain with scattered obstacles in Chrono Parallel, and then use the MPC algorithm from \cite{ModelFidelity2016} to control that simulated vehicle. Doing so would benefit both the simulations field and the controls field. By bridging the gap between these two areas, those designing the control algorithms have a quicker and less expensive method of testing a control algorithm on a full vehicle on a variety of landscapes to gain quick understanding of how well their controller behaves. On the other hand, developing this sort of simulation improves the amount of applications Chrono Parallel can be used in. This research has performd higher fidelity testing of the control algorithm than has previously been accomplished, a step which is necessary if this algorithm is to eventually be implemented in an actual vehicle. 
 
-	The uniqueness of this research comes from two areas: controls and simulation. Most Chrono simulations created so far do not test any sort of complex control algorithm for an autonomous vehicle. More interest is placed in understanding vehicle mobility over different terrains. However, this research does test an autonomous vehicle and its ability to navigate around local sensed obstacles. Therefore, a frmework has been developed to allow the simulated vehicle to “sense” obstacles in the area and generate its own commands while it navigates across the terrain instead of relying on externally supplied commands. Can this MPC control algorithm generate the appropriate commands to navigate a vehicle through an obstacle field? On the controls side, this is a unique effort as well. As mentioned, the MPC algorithm has yet to be tested on granular terrain. However, considering an AGV will be driving off road on soil or sand, this is an appropriate next step for testing. This research answers the question of if simulation can be used to effectively test an autonomous vehicle on granular terrain. Computationally this requires a lot of resources, but if a team can test their control algorithm on the computer before going out to the test field with a vehicle, this could save both time and money for that team.
-
-\todo[inline]{copied from thesis outline, needs to be updated}
+The uniqueness of this research comes from two areas: controls and simulation. Most Chrono simulations created so far do not test any sort of complex control algorithm for an autonomous vehicle. More interest is placed in understanding vehicle mobility over different terrains. However, this research does test an autonomous vehicle and its ability to navigate around local sensed obstacles. Therefore, a frmework has been developed to allow the simulated vehicle to “sense” obstacles in the area and generate its own commands while it navigates across the terrain instead of relying on externally supplied commands. Can this MPC control algorithm generate the appropriate commands to navigate a vehicle through an obstacle field? On the controls side, this is a unique effort as well. As mentioned, the MPC algorithm has yet to be tested on granular terrain. However, considering an AGV will be driving off road on soil or sand, this is an appropriate next step for testing. This research answers the question of if simulation can be used to effectively test an autonomous vehicle on granular terrain. Computationally this requires a lot of resources, but if a team can test their control algorithm on the computer before going out to the test field with a vehicle, this could save both time and money for that team.
 
 %% ------------------------------------------------------------
 
-\subsection{Literature Review}\label{ss:LiteratureReview}
+\section{Literature Review}\label{s:LiteratureReview}
 
 Many obstacle avoidance algorithms have been developed in the past that allow for smooth, continuous, fast motion of an AGV through an obstacle field. Early algorithms were primarily developed and tested on small ground robots and mainly focused on finding a collision free path. However, they did not necessarily guarantee optimality or the vehicle's ability to achieve that prescribed collision-free path. Some early researched algorithms were developed using artificial potential methods. Applied to a manipulator moving through space, the philosophy of the potential field approach can be summarized as: "The manipulator moves in a field of forces. The position or target to be reached is an attractive pole while all obstacles are repulsive surfaces for the manipulator parts"~\cite{Khatib1986}. Khatib described the formulation and implementation of the artificial potential field concept towards obstacle avoidance. Using the kinematic relationships of the system to be controlled, a Lagrangian formulation is used to develop the equations of motion of the system. An artificial potential field is created that is nonnegative continuous and differentiable whose value goes to infinity as the vehicle approaches an obstacle. The overall artificial potential function is then a sum of the contributing potential fields caused by each of the obstacles within the obstacle field. Each of the obstacles are modeled as a composition of primitives with analytical equations representing their collision envelopes. Khatib successfully implemented this obstacle avoidance algorithm real-time in \textit{Control in Operational Space of a Manipulator-with-Obstacles-System} (COSMOS)with links and moving obstacles \cite{Khatib1986}. 
 
@@ -199,7 +295,7 @@ Findheisen and Allg{\"o}wer provide an introduction to nonlinear Model Predictiv
 
 Ogren and Leonard present the Dynamic Window Approach for fast and safe obstacle avoidance in unknown environments and recast the approach in a continuous nonlinear framework, drawing many similarities to MPC \cite{Ogren&Leonard2005}. A method for generating a navigation function with a single unique minimum is presented. In this study, the control input space is discretized for a computationally tractable version of MPC, and exhaustive search is used to identify the best control input choice. Of all the control input possibilities, there always exists one such that the robot will be able to stop before hitting any obstacle to insure safety \cite{Ogren&Leonard2005}.
 
-Primbs, Nevisti, and Doyle explore Control Lyapunov Functions (CLF) and Receding HOrizon Control or MPC approaches to nonlinear control \cite{Primbs&Nevistic1999}. Comparisons are made between the two methods and it is noted that they seek to solve the same problem optimally and some properties of each method are complementary to one another. The CLF methods are best interpretted in the context of Hamilton-Jacobi-Bellman equations while MPC relates more closely to a Euler-Lagrange framework. The CLF provides a global optimal solution, but the partial differential equation one must solve is very difficult and computationally infeasible. The MPC approach instead allows for on-line computation of an optimal solution locally, and resolves this problem every time step specified. The problem is only solved over a fixed time horizon. However, it is difficult to apply Lyapunov Stability Theory to this MPC method where numerical techniques are used to solve for optimal solutions. Also, the relation between time horizon length and stability are not necessarily linear as noted by results from experiments \cite{Primbs&Nevistic1999}. 
+Primbs, Nevisti, and Doyle explore Control Lyapunov Functions (CLF) and Receding Horizon Control or MPC approaches to nonlinear control \cite{Primbs&Nevistic1999}. Comparisons are made between the two methods and it is noted that they seek to solve the same problem optimally and some properties of each method are complementary to one another. The CLF methods are best interpretted in the context of Hamilton-Jacobi-Bellman equations while MPC relates more closely to a Euler-Lagrange framework. The CLF provides a global optimal solution, but the partial differential equation one must solve is very difficult and computationally infeasible. The MPC approach instead allows for on-line computation of an optimal solution locally, and resolves this problem every time step specified. The problem is only solved over a fixed time horizon. However, it is difficult to apply Lyapunov Stability Theory to this MPC method where numerical techniques are used to solve for optimal solutions. Also, the relation between time horizon length and stability are not necessarily linear as noted by results from experiments \cite{Primbs&Nevistic1999}. 
 
 Tahirovic and Magnani propose a passivity based MPC control for Robot Navigation through rough terrain \cite{Tahirovic&Magnani2010}. This method boasts simplicity of application for all vehicles as long as one can accurately model them. A virtual model of the vehicle is then made using shaped energy. The algorithm quantifies roughness of the terrain and uses this parameter when analyzing the cost of a specified path. The roughness is expressed as the relative height of the terrain locally. Simulations have proven successful navigation of a vehicle through hilly terrain, yet there is no mention of how the terrain data would actually be obtained \cite{Tahirovic&Magnani2010}. This passivity based MPC method can be applied on-line, but this would only be feasible if there was some sort of sensor and data analysis algorithm which can sense the local terrain roughness.
 
@@ -223,46 +319,125 @@ Gray, Ali, Gao, Borrelli, and Hedrick used a MPC algorithm to maintain driver sa
 
 Beal and Gerdes proposed a solution to the issue of vehicle stabilization control near the limits of handling \cite{Beal&Gerdes2013}. Normally, an ESC works by using a linear model of a vehicle to predict driver intent and when the vehicle deviates past a threshold of the allowed deviation between driver intent and vehicle behavior, then the controller activates and stabilizes the vehicle. However, this method does not work when the vehicle is being operated near the stable vehicle limits such as by an experienced driver because the linearized vehicle model is linearized about a conservative point for production level cars. The vehicle behavior near its dynamic limits is nonlinear and does not match the linearized model. Therefore, an MPC based controller was proposed and tested that operates at two levels and quickly enough for realtime implementation. The controller has two objectives. The first is to keep the vehicle inside of the safe-handling envelope and respond appropriately in case the vehicle leaves this safe envelope. The second objective is to allow the controller to track the driver's intended trajectory. Overall the controller was able to successfully achieve these objectives through experiments with Stanford's PI vehicle testbed \cite{Beal&Gerdes2013}.
 
-\todo[inline]{finish lit review}
+Ersal, Jayakumar, Lui, and Stein developed a constant speed LIDAR-based local obstacle avoidance controller using an MPC algorithm and performed a study on the role of model fidelity with this controller \cite{ModelFidelity2016}. The internal vehicle models used for this study were a 2-DOF and 14-DOF constant speed vehicle models while lateral tire forces were modeled either using the pure slip Pacejka Magic Formula or a linearized version of the PAcejka Magic Formula. All of these tests were performed on rigid ground and a 14-DOF vehicle model was used as the plant vehicle. The vehicle when controlled by the controller with the 14-DOF model with nonlinear tire forces performed marginally better in this study than all other vehicle and tire force model combinations, but runtimes were sacrificed to achieve this boost of performance. However, the 2-DOF models with linear tire forcesdid perform successfully in most tests which led to the conclusion that using this controller would be appropriate doe to the benefits of quicker runtimes. The 14-DOF model can then be used to determine appropriate safety constraints to include in the optimal control problem formulation \cite{ModelFidelity2016}.
 
+Ersal, Jayakumar, Lui, and Stein alsodeveloped a combined speed and steering local obstacle avoidance controller using an MPC algorithm which is an improvement on the controller from \cite{ModelFidelity2016}. A multi-phase optimal control problem was formulated to optimize speed and steering within the prediction window \cite{SpeedSteer2015}. A powertrain model is used to determine acceleration capabilities as a function of speed of the vehicle and safety constraints to prevent tire lift-off are imposed in the optimal control problem formulation. The vehicle does not need \textit{a priori} knowledge of the obstacle field and instead develops a safe area polygonfrom LIDAR points. Simulation results from this study show this newer controller is capable of navigating through more obstacle distributions and sharper turns than the constant speed controller. A 3-DOF vehicle model is used as the internal controller model used to predict vehicle states \cite{SpeedSteer2015}. 
 
+A common aspect to all of the previously studied papers and studies is that they were performed on rigid ground. Some sources used height maps to test the vehicle over hilly terrain or used a roughness factor to quantify any deviations from flat terrain. However, most of the previous studies had been primarily focused on the case where a vehicle needs to move to a target location on rigid terrain. Depending on the applications, this sort of testing may be appropriate such as for a car driving on a paved road. For applications such as military, agricultural, off-road sport, and mining this rigid ground assumption does not hold. Therefore a fundamental understanding of the relationship between vehicle performance and terrain characteristics is necessary. The testing performed previously in \cite{ModelFidelity2016} should be extended to granular terrain. This presents another two questions. What is the best way to simulate granular terrain and what effect do the granular terrain parameters have on vehicle performance? 
 
+The first question depends on the application and the computational resources available for the study. Some methods are quicker than others yet do not completely capture exactly what is happening at the tire ground contact patch while other methods more accurately model that interaction but are computationally exhausting. Generally in terramechanics there are two high fidelity techniques to model soft soils for a vehicle on granular terrain applications: finite element models and particle or mesh-free models. 
 
+Finite Element (FE) soil models model the soil by discretizing it into a FE mesh and use some elasto-visco-plastic continuum mechanics contitutive material model to approximate the behavior of the soil such as yielding, flow, cohesion, and internal friction. A review of basic soil constitutive models was compiled in \cite{SoilModels2009}. These models aim to approximate the Mohr-Coulomb yield behavior of the soil. Most FE soil studies model the soil deformation using the motion of the FE nodes using a Lagrangian formulation. However, the Lagrangian method requires remeshing when deformations approach moderate to large values which are both computationally expensive and still may not prevent element distortion. This also fails to capture effects of soil deformation such as bulldozing or soil seperation. This is an active area of research where there is even an effort to develop a soil continuum mechanics model which includes cohesion and can properly account for soil flow, plasticity, interparticle friction, cohesion, and the effect of current stress values on the material properties. 
 
+The high fidelity alternative to FE soil models is mesh-free particle-based models where instead of treating the terrain as a continuum, the terrain consists of a set of particles with inter-particle forces then representing the soil mechanical behavior. A brief summary of three different particle-based methods is presented in \cite{SoilCharacteristics2017}. These methods are successfully able to capture the effects of soil flow, bulldozing, and ruts. Though particle-based methods are computationally expensive as well since typically they can have millions of particles, the benefits of handling bulldozing, seperation, flow, and ruts make it a desirable method. They may even be less expensive than an FE method which is constantly being remeshed. One comman particle-based method is the Disrete Element Method (DEM) where the soil is modeled as a large number of individual bodies which collide and roll along each other to simulate bulk soil material behavior. Normal contact forces generally in this method prevent particles from penetrating one another. Often DEM soil models include tangential contact forces, cohesive forces such as if the soil had some water content, or even distant dependent forces such as gravitational or electrostatic interactive forces. 
+
+Jayakumar, Mechergui, and Wasfy performed a simulation study to understand the effects of soil characteristics on vehicle mobility over granular terrain \cite{SoilCharacteristics2017}. Different cohesive and non-cohesive soils were modeled using DEM. Cone penetrometer simulations were performed to study the effect of the inter-particle friction coefficient and cohesion on soil strength measured using the cone index (CI). A multibody dynamics model of a vehicle was developed consisting of 33 rigid bodies connected with spherical, revolute, prismatic, and constant velocity joints. To simulate the vehicle over granular terrain, a moving soil patch was used which takes particles behind the vehicle, deletes them, and then re-emits them in front of the vehicle and compresses them before the vehicle moves over them again. This patch is implemented in the x-direction. This research group was able to conclude from their results that for non-cohesive or weakly cohesive particles when particle size increases, wheel slip and sinkage decreases, vehicle speed increases,and tractive force slightly decreases. As soil cohesion increases, soil cone index increases resulting in vehicle speed increasing, wheel slip and sinkage decreasing, and tractive force decreasing. For weakly cohesive soil, inter-particle friction and soil density have a big influence on mobility parameters. Mobility parameters seem to level off once inter-particle friction reaches a certain point \cite{SoilCharacteristics2017}.
+
+The performed literature review has assisted with refining the goals and means for achieving the goals of this research. Researchers for decades have been exploring obstacle avoidance techniques to navigate vehicles operating at their dynamic limits. However, the next and also logical step forward from this point is to implement these control algorithms on granular terrain. This task for this research will be accomplished virtually by creating a test environment to perform both rigid ground and granular simulations using {\CHRONO}. 
 
 %% ------------------------------------------------------------
 
-\subsection{Objectives and Methodology}\label{ss:ObjectivesMethodology}
+\section{Objectives and Methodology}\label{s:ObjectivesMethodology}
 
-The goal of this research is to understand how model fidelity of the controller model affects overall performance of the obstacle avoidance controller. This leads to a better understanding of vehicle dynamics and performance on granular terrain as well as promotes the development of a controller designed for general terrain travel in the future. Simulating a vehicle on granular terrain in such scenarios introduces additional challenges related to the sheer number of necessary particles required to properly model the desired terrain patch. This challenge has been addressed by employing a simulation framework for granular terrain described later in this paper.
+The goal of this research is to first understand how model fidelity of the controller model affects overall performance of the obstacle avoidance controller. This leads to a better understanding of vehicle dynamics and performance on granular terrain as well as promotes the development of a controller designed for general terrain travel in the future. From this understanding, the controller and internal models were improved to allow for better controlled vehicle performance on granular terrain. Simulating a vehicle on granular terrain in such scenarios introduces additional challenges related to the sheer number of necessary particles required to properly model the desired terrain patch. This challenge has been addressed by employing a simulation framework for granular terrain described later in this paper.
 
-The present study has the following three objectives:
+The present study has the following five objectives:
 \begin{enumerate}
+\item
+Develop a robust simulation environment using {\CHRONO} to simulate granular terrain efficiently over large large terrains without actually modeling every single particle over the large terrain.
 \item
 Study the performance of the MPC Controller on granular terrain as compared to that on rigid terrain.
 \item
 Analyze the impact of fidelity of the internal controller model on speed and performance of the obstacle avoidance controller.
 \item
+Improve the controller for better performance on granular terrain.
+\item
 Showcase the potential of controller testing in a high fidelity virtual test environment with {\CHRONO} to assist with initial control algorithm development before physical implementation for vehicular applications.
 \end{enumerate}
 
-From previous literature research, this MPC algorithm has been tested successfully on flat rigid terrain. However, using Chrono Parallel one has the capabilities to develop a simulation of a vehicle on hilly, deformable, and even granular terrain. In this research, Chrono Parallel is used to develop a simulation of a AGV driving on customizable granular terrain through a user defined obstacle field to a defined target location. Chrono already possesses the ability to create new geometries easily with a modular framework, so one will then be able to easily create their own obstacle field for the vehicle to maneuver through. Using theory and developments from \cite{ModelFidelity2016}, the MPC algorithm has been implemented in the simulation to determine optimal steering commands for the AGV. Tests similar to those executed in \cite{ModelFidelity2016} were conducted within this simulation on rigid flat terrain for the two models presented previously to confirm the controller operates appropriately. The algorithm was then tested on granular terrain to understand how controlled vehicle performance changes on granular terrain versus previously tested rigid ground simulations. The MPC algorithm solves a very large optimization problem to determine the quickest safe path to the destination. An exhaustive search based method was used to solve this optimal control problem. Improvements were explored to boost vehicle performance on granular terrain and are discussed at the end of this paper.
-
-/todo[inline]{copied from thesis outline, adjust}
+From previous literature research, this MPC algorithm has been tested successfully on flat rigid terrain. However, using Chrono Parallel one has the capabilities to develop a simulation of a vehicle on hilly, deformable, and even granular terrain. In this research, Chrono Parallel is used to develop a simulation of a AGV driving on customizable granular terrain through a user defined obstacle field to a defined target location. Chrono already possesses the ability to create new geometries easily with a modular framework, so one will then be able to easily create their own obstacle field for the vehicle to maneuver through. Using theory and developments from \cite{ModelFidelity2016}, the MPC algorithm has been implemented in the simulation to determine optimal steering commands for the AGV. Tests similar to those executed in \cite{ModelFidelity2016} were conducted within this simulation on rigid flat terrain for the two models presented previously to confirm the controller operates appropriately. The algorithm was then tested on granular terrain to understand how controlled vehicle performance changes on granular terrain versus previously tested rigid ground simulations. The MPC algorithm solves a very large optimization problem to determine the quickest safe path to the destination. An exhaustive search based method was used to solve this optimal control problem. Improvements were explored to boost vehicle performance on granular terrain. A second virtual experiment was conducted using the improvements to the controller and those results are discussed at the end of this paper.
 
 %% ============================================================
 
-\section{THEORETICAL BACKGROUND}\label{s:background}
+\chapter{THEORETICAL BACKGROUND}\label{c:background}
 
-\subsection{{\CHRONO} Multibody Physics Package}\label{ss:Chrono}
+\section{Multibody Dynamics Background}\label{s:MBD}
+
+A system of index 3 Differential Algebraic Equations (DAE's) are used to characterize the dynamics of a system composed of rigid and flexible bodies as presented in \cite{Chrono2016}.
+%
+\begin{equation}\label{e:LinTrans}
+\boldsymbol{\dot{q}}= \boldsymbol{L}\left(\boldsymbol{q}\right)\boldsymbol{v}
+\end{equation}
+%
+\begin{equation}\label{e:ForceBalance}
+\boldsymbol{M}\left(\boldsymbol{q}\right)\boldsymbol{\dot{v}} = \boldsymbol{f}\left(t,\boldsymbol{q},\boldsymbol{v}\right) - \boldsymbol{g^T_q} \left(\boldsymbol{q},t\right)\hat{\lambda}  \textcolor{red}{ + \sum\limits_{i \in \boldsymbol{\mathcal{A}}\left(\boldsymbol{q},\delta\right) }\left(\hat\gamma_{i,n}\boldsymbol{D}_{i,n} + \hat\gamma_{i,u}\boldsymbol{D}_{i,u} + \hat\gamma_{i,w}\boldsymbol{D}_{i,w}\right)}
+\end{equation}
+%
+\begin{equation}\label{e:Constraints}
+\boldsymbol{0} = \boldsymbol{g}\left(\boldsymbol{q},t\right)
+\end{equation}
+%
+{\color{red}\begin{equation}\label{e:Inequalities}
+\textcolor{red}{i \in \mathcal{A}\left(\boldsymbol{q}\left(t\right)\right):}
+\left\{
+     \begin{array}{@{}l@{\thinspace}l}
+      \textcolor{red}{0\le\boldsymbol{\Phi}_i \left(\boldsymbol{q}\right)} &\textcolor{red}{\bot \hat\gamma_{i,n}  \ge 0}\\
+      \textcolor{red}{\left(\hat\gamma_{i,u},\hat\gamma_{i,w}\right)} &\textcolor{red}{= \argminB\limits_{\sqrt{\bar\gamma_{i,u}^2 + \bar\gamma_{i,w}^2}\le\mu_i \hat\gamma_{i,n}} \boldsymbol{v}^T \cdot \left(\bar\gamma_{i,u}\boldsymbol{D}_{i,u} + \bar\gamma_{i,w}\boldsymbol{D}_{i,w}\right)} \\
+% 
+     \end{array}
+\right . 
+\end{equation}}
+
+Equation \ref{e:LinTrans} relates the time derivative of the generalized coordinates $\boldsymbol{q}$ to the velocities $\boldsymbol{v}$ using a linear transformation defined by $L\left(\boldsymbol{q}\right)$. Equation \ref{e:ForceBalance} relates the inertial forces of the system to the applied forces $\boldsymbol{f}\left(t,\boldsymbol{q},\boldsymbol{v}\right)$ and constraint forces $- \boldsymbol{g^T_q} \left(\boldsymbol{q},t\right)\hat{\lambda}$. Equation \ref{e:Constraints} is a set of bilateral constraints imposed on the system that enforce the kinematic behavior of all the bodies in the system and restrict their relative motion. The bilateral constraints of Equation \ref{e:Constraints} can then be augmented by unilateral constraints due to contact/impact phenomena. This point allows the concept of equations of motion to be extended to include differential inclusions \cite{filippov88}. A simple example that outlines this concept is of a single body that interacts with the ground through both friction and contact and the equations of motion become an inclusion $\boldsymbol{M\ddot{q}}-\boldsymbol{f}\in\boldsymbol{F}\left(\boldsymbol{q},t\right)$. In this case $\boldsymbol{M}$ is the inertia matrix of the body,  $\boldsymbol{\ddot{q}}$ is the body acceleration,  $\boldsymbol{f}$ is the external force, and $\boldsymbol{F}\left(\boldsymbol{q},t\right)$ is some set-valued function. This inclusion then states that the frictional contact force remains somewhere inside of a friction cone with a not yet determined value controlled by the stick or slip state of the interaction between the body and the ground. The red terms in Equations \ref{e:LinTrans}-\ref{e:Inequalities} are introduced to the commonly known equations represented in black when in multibody dynamics the differential inclusion is posed as a differential variational inequality problem. The unilateral constraints then presented in Equation \ref{e:Inequalities} define a set of contact complementarity conditions $0\le\boldsymbol{\Phi}_i \left(\boldsymbol{q}\right) \bot \hat\gamma_{i,n}  \ge 0$. These conditions make the following simple point regarding contact forces. For a potential contact $i$ in the active set, $i \in \mathcal{A}\left(\boldsymbol{q}\left(t\right)\right)$, either the gap $\boldsymbol{\Phi}_i$ between two geometries is zero and therefore the normal contact force $\hat\gamma_{i,n}$ is greater than $0$, or $\boldsymbol{\Phi}_i$ is greater than $0$ meaning two geometries are not in contact and therefore $\hat\gamma_{i,n}$ is $0$. Equation \ref{e:Inequalities} then poses an optimization problem whose first order Karush-Kuhn-Tucker optimality conditions are equivalent to the Coulomb dry friction contact model \cite{st00}. Therefore in Equation \ref{e:ForceBalance} the force associated with contact $i$ leads to the red generalized forces obtained by using projectors $\boldsymbol{D}_{i,n}$, $\boldsymbol{D}_{i,u}$, and $\boldsymbol{D}_{i,w}$.
+
+%%-------------------------------------------------------------
+
+\section{Dealing with Contacts: The Penalty Method}\label{s:Penalty}
+
+The method of modeling described above is implemented in Chrono to analyze the dynamics of large multibody systems and granular media in a Discrete Element Method (DEM) framework. This method uses the complementarity conditions in Equation \ref{e:Inequalities} to enforce non-penetration of bodies that come into  contact. This method is then referred to as DEM-C. This research however does not use the DEM-C method, but instead employs a Penalty (P) method that accounts for partial body deformations in mutual contact to calculate contact forces and thus this method is referred to as DEM-P. Therefore the Penalty Method is used to calculate contact forces one body exerts on another within the DEM simulation framework in Chrono chosen for this research~\cite{Chrono2016}. With this DEM-P approach or soft-body approach, bodies are considered "soft" in that their collision geometries are able to overlap each timestep or experience local deformation. A collision detection algorithm is used to find when and where these overlaps $\delta_n$ occur. Contact force vectors $\boldsymbol{F}_n$ and $\boldsymbol{F}_t$ normal and tangential to the contact plane respectively at the point of contact are calculated using a chosen constitutive law based on the local body deformations at the point of mutual contact. In the contact-normal direction $\boldsymbol{n}$, this local body deformation is defined as the overlap of the two quasi-rigid bodies $\boldsymbol{u}_n = \delta_n\boldsymbol{n}$. Then in the contact-tangential direction, the deformation is defined by the vector $\boldsymbol{u}_t$ that keeps track of the total tangential displacement of the intial contact points on the two quasi-rigid bodies while in contact, projected onto the current contact plane. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\columnwidth]{Figs/DEM-PM_Contact_Model.png}
+	\caption{\small Reproduced from \protect\cite{Chrono2016}. DEM-P contact model with normal overlap distance $\delta_n$, contact-normal unit vector $\boldsymbol{n}$, and tangential displacement vector $\boldsymbol{u}_t$ (top), and a Hookean-linear contact force-displacement model with constant Coulomb sliding friction (bottom) }  
+	\label{fig:Penalty}
+\end{figure}
+
+An example of a DEM-P contact constitutive law similar to one implemented in Chrono is a viscoelastic model based on either Hookean or Hertzian contact theory outlined in Equations \ref{e:normalContact}-\ref{e:tangentContact}. Here $\boldsymbol{u} = \boldsymbol{u}_n + \boldsymbol{u}_t$ is the overlap or local contact displacement of two interacting bodies. The quantities $\bar{m} = m_i m_j/\left(m_i + m_j\right)$ and $\bar{R} = R_i R_j/\left(R_i + R_j\right)$ are the effective mass and effective radius of curvature respectively for bodies $i$ and $j$ in contact. The vectors $\boldsymbol{v}_n$ and $\boldsymbol{v}_t$ are the normal and tangential components respectively of the relative velocity at the contact point. For a Hookean contact model, $f\left(\bar{R},\delta_n\right) = 1$ while for a Hertzian contact model, $f\left(\bar{R},\delta_n\right) = sqrt{\bar{R}\delta_n}$ \cite{silbert2001granular,zhang2005jamming,MachadoMoreiraFloresLankarani2012}. The normal and tangential stiffnesses and damping coefficients $k_n$, $k_t$, $\gamma_n$, and $\gamma_t$ are obtained through various constitutive laws derived from contact mechanics and physically measurable properties of materials of the contacting bodies such as Young's Modulus, Poisson's ratio, coefficient of restitiution, etc. 
+%
+\begin{equation}\label{e:normalContact}
+\boldsymbol{F}_n = f\left(\bar{R},\delta_n\right)\left(k_n \boldsymbol{u}_n - \gamma_n \bar{m}\boldsymbol{v}_n\right)
+\end{equation}
+%
+\begin{equation}\label{e:tangentContact}
+\boldsymbol{F}_t = f\left(\bar{R},\delta_n\right)\left(-k_t \boldsymbol{u}_t - \gamma_t \bar{m}\boldsymbol{v}_t\right)
+\end{equation}
+
+The component of the contact displacement vector $\boldsymbol{u}$ in the contact normal direction $\boldsymbol{u}_n = \delta_n \boldsymbol{n}$ is obtained directly from the contact detection algorithm which identifies and quantifies the magnitude of body overlap between interacting bodies. The tangential contact displacement vector $\boldsymbol{u}_t$ is a bit more complicated and formulated in Equation \ref{e:TangentialContactHistory}. In Equation \ref{e:TangentialContactHistory}, $t$ is the current time and $t_0$ is the time when the contact was initiated. Then for a true tangential contact displacement history model,the vector $\boldsymbol{u}_t$ must be stored and updated at each time for each contact point from the time when contact is initiated up until the contact is terminated. 
+%
+\begin{equation}\label{e:TangentialContactHistory}
+\boldsymbol{u}_t = \int_{t_0}^{t}\boldsymbol{v}_t dt - \left( \boldsymbol{n}\cdot  \int_{t_0}^{t}\boldsymbol{v}_t dt \right)  \boldsymbol{n}
+\end{equation}
+
+To enforce the Coulomb friction law, if $\lvert \boldsymbol{F}_t \rvert > \mu\lvert \boldsymbol{F}_n \rvert$ at any given time step, before the contact forces are added to the resultant force and torque on each body, the stored value of $\lvert\boldsymbol{u}_t\rvert$ is scaled such that $\lvert \boldsymbol{F}_t \rvert = \mu\lvert \boldsymbol{F}_t \rvert$, where $\mu$ is the Coulomb friction coefficient. An example of this is presented in Equation \ref{e:tanLimit} if a Hookean contact model is used and $ f\left(\bar{R},\delta_n\right) = 1$ in Equations \ref{e:normalContact}-\ref{e:tangentContact}.
+%
+\begin{equation}\label{e:tanLimit}
+k_t\lvert \boldsymbol{u}_t \rvert > \mu\lvert \boldsymbol{F}_n \rvert  \Rightarrow \boldsymbol{u}_t \leftarrow \boldsymbol{u}_t \frac{\mu\lvert \boldsymbol{F}_n \rvert}{k_t\lvert \boldsymbol{u}_t \rvert}
+\end{equation}
+
+Through the processes described above, once the contact forces $\boldsymbol{F}_n$ $\boldsymbol{F}_t$ are computed for each contact and their contributions are summed to obtain resultant forces and torques for each interacting body, the Newton-Euler equations of motion are integrated subject to the Courant-Friedrichs-Lewy (CFL) stability condition. The CFL stability condition limits the integration time step-size to $h<h_{crit} ~ \sqrt{m_{min} / k_{max}}$  \cite{OSullivan&Bray2004}. For multibody dynamics simulations with frictional contact modeled using the penalty approach as with this research, Chrono implements index 3 DAE solutions \cite{Chrono2016}.
+
+%%-------------------------------------------------------------
+
+\section{{\CHRONO} Multibody Physics Package}\label{s:Chrono}
 
 The physics modeling and simulation capabilities are provided by the multiphysics open-source package {\CHRONO}~\cite{Chrono2016}. The core functionality of {\CHRONO} provides support for the modeling, simulation, and visualization of rigid multibody systems, with additional capabilities offered through optional modules. These modules provide support for additional classes of problems (e.g., finite element analysis and fluid-solid interaction), for modeling and simulation of specialized systems (such as ground vehicles and granular dynamics problems), or provide specialized parallel computing algorithms (multi-core, GPU, and distributed) for large-scale simulations.
 
 %% ------------------------------------------------------------
 
-\subsubsection{Vehicle Modeling}\label{sss:Chrono_Vehicle}
+\subsection{Vehicle Modeling}\label{ss:Chrono_Vehicle}
 	
-Built as a {\CHRONO} extension module, {\ChronoVehicle}~\cite{ChronoVehicle_paper} is a C++ middleware library focused on the modeling, simulation, and visualization of ground vehicles.
+Built as a {\CHRONO} extension module, {\ChronoVehicle}~\cite{ChronoVehicle_TR} is a C++ middleware library focused on the modeling, simulation, and visualization of ground vehicles.
 %
 {\ChronoVehicle} provides a collection of templates for various topologies of both wheeled and tracked vehicle subsystems, as well as support for modeling of rigid, flexible, and granular terrain, support for closed-loop and interactive driver models, and run-time and off-line visualization of simulation results.
 
@@ -279,31 +454,33 @@ In addition, {\ChronoVehicle} offers a variety of tire models and associated tem
 
 %% ------------------------------------------------------------
 
-\subsection{MPC LIDAR-Based Local Obstacle Avoidance : History and Current Algorithm }\label{MPC}
+\section{MPC LIDAR-Based Local Obstacle Avoidance : History and Current Algorithm }\label{s:MPC}
 
-
-\begin{figure*}
+\begin{figure}
 	\centering
 	\includegraphics[width=0.75\textwidth]{Figs/MPCBlockDiagram.png}
 	\caption{{\small Schematic of MPC LIDAR-Based Constant Speed Local Obstacle Avoidance Controller}}    
 	\label{fig:MPC_schematic}
-\end{figure*}
+\end{figure}
 
 The concept of MPC is to use an internal model of the system one desires to control to predict and optimize future system behavior from the current system state and inputs ~\cite{Allgower&Findeisen2002}. The system behavior is predicted over some defined finite time horizon and the optimal control sequence over the prediction horizon is output. The control sequence is executed for an execution time smaller than the prediction horizon, and the whole process is repeated. The repetition of this process over time creates a feedback loop which continually controls the system, pushing it towards an optimal path.
 
 For this study, the system to be controlled is an AGV. Consider an AGV located in a level environment without roads or any other structures to guide its motion and assume the AGV has a known global target position. Between the target position and the current vehicle position there may or may not be obstacles of unknown size. Using the MPC formulation outlined in~\cite{ModelFidelity2016}, the vehicle can navigate from the current position to the provided target position while avoiding obstacles as they are encountered. Obstacle information is assumed to be unknown a priori and only obtained through a planar LIDAR sensor. The MPC schematic is presented in Fig.~\ref{fig:MPC_schematic}.
 %
 
-\begin{figure}
+The planar LIDAR sensor, mounted at the front center location of the vehicle, returns the closest obstacle boundary in all radial directions of the sensor at an angular resolution $\epsilon$. The sensor has a maximum range past which it cannot sense any obstacles. Therefore, if the closest obstacle boundary is greater than the LIDAR radius $R_{LIDAR}$, then the sensor returns $R_{LIDAR}$. The LIDAR sensor range is [$0^\circ$, $180^\circ$], with $90^\circ$ being the vehicle heading direction. Since the AGV considered here is driving along level ground, whether granular or rigid, a planar LIDAR sensor is sufficient. The sensor is assumed to have no delay and zero noise and can therefore instantaneously generate a safe area polygon assembled from the returned points from the LIDAR. An overhead view of the AGV encountering an obstacle and the generated LIDAR safe area polygon are presented in Fig.~\ref{fig:LIDARExample}. 
+%
+
+\begin{figure}[t]
 	\centering
-	\begin{subfigure}[b]{\columnwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
-		\includegraphics[width=0.8\columnwidth]{Figs/incomingObst.png}
+		\includegraphics[width=\columnwidth]{Figs/incomingObst.png}
 		\caption{{\small 3D Visualization of LIDAR Encountering Obstacle}}   
 		\label{fig:obstacle_field_3D}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{\columnwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{Figs/obstLIDAR.png}
 		\caption{\small LIDAR Sensed Safe Area}   
@@ -313,11 +490,61 @@ For this study, the system to be controlled is an AGV. Consider an AGV located i
 	\label{fig:LIDARExample}
 \end{figure}
 
-The planar LIDAR sensor, mounted at the front center location of the vehicle, returns the closest obstacle boundary in all radial directions of the sensor at an angular resolution $\epsilon$. The sensor has a maximum range past which it cannot sense any obstacles. Therefore, if the closest obstacle boundary is greater than the LIDAR radius $R_{LIDAR}$, then the sensor returns $R_{LIDAR}$. The LIDAR sensor range is [$0^\circ$, $180^\circ$], with $90^\circ$ being the vehicle heading direction. Since the AGV considered here is driving along level ground, whether granular or rigid, a planar LIDAR sensor is sufficient. The sensor is assumed to have no delay and zero noise and can therefore instantaneously generate a safe area polygon assembled from the returned points from the LIDAR. An overhead view of the AGV encountering an obstacle and the generated LIDAR safe area polygon are presented in Fig.~\ref{fig:LIDARExample}. 
-%
-In this research, all of the obstacles are upright cylinders so a ray-circle intersection algorithm is used to determine when each LIDAR ray intersects with a nearby obstacle. 
+In this research, all of the obstacles are upright cylinders so a ray-circle intersection algorithm is used to determine when each LIDAR ray intersects with a nearby obstacle. The ray-circle intersection algorithm is developed as follows. Consider a two dimensional ray in the x-y plane with the start point $\boldsymbol{E}$ and $\boldsymbol{L}$ some point along the length of the ray we are interested in. In our case, this point is the LIDAR radius. Also consider a circle with a center point defined as $\boldsymbol{C}$ and radius $r$. This is visualized in Fig. \ref{fig:RayCircleIntersection}. We then form the following vectors:
 
-\todo[inline]{insert description of the ray circle intersection algorithm used}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{Figs/no-image.png}
+	\caption{{\small Ray-Circle Intersection Visualization}}    
+	\label{fig:RayCircleIntersection}
+\end{figure}
+
+\begin{equation}\label{e:RayVector}
+\boldsymbol{d} = \boldsymbol{L} - \boldsymbol{E}
+\end{equation}
+\begin{equation}\label{e:CircleCenterVector}
+\boldsymbol{f} = \boldsymbol{E} - \boldsymbol{C} 
+\end{equation}
+\begin{equation}\label{e:Intersection}
+\boldsymbol{P} = \boldsymbol{E} + t*\boldsymbol{d}
+\end{equation}
+
+Here, $\boldsymbol{d}$ is a vector describing the ray from its start point to end point. $\boldsymbol{f}$ is a vector from the circle center to the start of the vector $\boldsymbol{d}$. $\boldsymbol{P}$ is the location of the point where the ray intersects with the circle. $t$ is a scalar which defines how far along the length of $\boldsymbol{d}$ the intersection between the ray and the circle actually occurs. The circle is then defined by:
+
+\begin{equation}\label{e:Circle}
+\left(x - C_{x}\right)^{2} +   \left(y - C_{y}\right)^{2} = r^2
+\end{equation}
+\begin{equation}\label{e:CircleExpanded}
+x^2 - 2C_{x}x + C_{x}^{2} + y^2 - 2C_{y}y+ C_{y}^{2} - r^2 = 0
+\end{equation}
+
+We seek the point or points where the ray intersects with this circle which also happens to be described by Eq. \ref{e:Intersection} as well. Noting this yields:
+
+\begin{equation}\label{e:XIntersection}
+x = E_{x} + t*d_{x} 
+\end{equation}
+\begin{equation}\label{e:YIntersection}
+y = E_{y} + t*d_{y} 
+\end{equation}
+
+Substituting Eqs. \ref{e:XIntersection} and \ref{e:YIntersection} into \ref{e:CircleExpanded} results in the following.
+
+\begin{equation}\label{e:CircleSubst}
+\left(E_{x} + t*d_{x}\right)^2 - 2C_{x}\left(E_{x} + t*d_{x}\right) + C_{x}^{2} + \left(E_{y} + t*d_{y}\right)^2 - 2C_{y}\left(E_{y} + t*d_{y}\right)+ C_{y}^{2} - r^2 = 0
+\end{equation}
+
+Expanding and grouping like terms yields the following.
+\begin{equation}\label{e:CircleGrouped}
+t^{2}\left(d_{x}^{2} + d_{y}^{2}\right) + 2t\left(E_{x}d_{x} + E_{y}d_{y} - C_{x}d_{x} - C_{y}d_{y}\right) + E_{x}^{2} + E_{y}^{2} - 2 E_{x}C_{x} - 2 E_{y}C_{y} + C_{x}^{2} + C_{y}^{2} - r^{2} = 0
+\end{equation}
+
+Equation \ref{e:CircleGrouped} can be simplified further by identifying previously defined vectors and dot products can be substituted in.
+
+\begin{equation}\label{e:RayCircleIntersection}
+t^{2}\left(\boldsymbol{d}\cdot\boldsymbol{d}\right) + 2t\left(\boldsymbol{f}\cdot\boldsymbol{d}\right) +\boldsymbol{f}\cdot\boldsymbol{f} - r^{2} = 0
+\end{equation}
+
+Equation \ref{e:RayCircleIntersection} is a quadratic equation that can be solved for two values of $t$. The ray-circle intersection algorithm then implemented for this research checks the discriminant of Eq. \ref{e:e:RayCircleIntersection}. If the discriminant is less than zero, then the roots of this quadratic are imaginary and there is no intersection with the circle. If the discriminant is greater than zero, then there is an intersection and the quadratic formula is used to solve for the two values of $t$ that satisfy Eq. \ref{e:RayCircleIntersection}. Of the two solved $t$ values, the lower value is checked to see if it is less than one but greater than zero. If so, this $t$ value is the ray-circle intersection point used as the LIDAR detected point for the algorithm for this specific ray. Otherwise, the algorithm returns the maximum LIDAR radius. This algorithm does a quick and efficient job of simulating a perfect LIDAR sensor when the algorithm is performed on a set of rays all sweeping iteratively from the vehicle's location.
 
 For the purpose of these simulations, the only outputs of the MPC algorithm are the steering signals. As shown in Fig.~\ref{fig:MPC_schematic}, the MPC algorithm is made up of the internal controller vehicle model, the cost function and constraints, and the dynamic optimizer. The internal controller vehicle model predicts the future states of the AGV for a given steering sequence. Herein, the internal controller vehicle model is varied from test to test between a 2-DOF vehicle model and a 14-DOF vehicle model, as detailed in further sections. Cost functions and constraints are used to formulate the optimal control problem using the equations from the vehicle model, and the resulting optimal control problem is solved using dynamic optimization.
 
@@ -366,7 +593,7 @@ Equation~(\ref{e:SteerLimit}) imposes a maximum limit on the steering angle, bas
 
 As noted above, Eq.~(\ref{e:State_ODE}) refers to an analytical vehicle model expressed as a set of differential equations which allow the controller to predict vehicle performance within the prediction horizon. The accuracy of the internal vehicle controller model should directly influence the driven vehicle's controlled performance. If the internal vehicle controller model poorly predicts a vehicle's response to inputs from the driver or the environment, then these deficiencies will be witnessed when attempting to control the driven vehicle and result in incorrect trajectories that may lead to collisions. On the other hand, a highly complex internal vehicle controller model may provide accurate trajectory and vehicle response predictions, but with an unacceptable time required to solve the optimal control problem. An ideal controller should not only accurately predict vehicle responses, but also do it quickly enough to insure vehicle safety. 
 %%
-In this study we consider two separate internal controller vehicle models to approximate the dynamics of the driven {\CHRONO} HMMWV vehicle (described in Section~\ref{ss:FullVehicleModel}).  The first controller uses a simple 2-DOF vehicle model to predict the trajectory for different series of steering sequences and is presented in detail in Section~\ref{sss:2DOFModel}. The second controller, described in Section~\ref{sss:14DOFModel}, uses a more complex 14-DOF vehicle model. These two models are compared in their ability to successfully navigate the driven HMMWV vehicle through two obstacle fields, on rigid flat terrain and then granular terrain.
+In this study we consider two separate internal controller vehicle models to approximate the dynamics of the driven {\CHRONO} HMMWV vehicle (described in Section~\ref{s:FullVehicleModel}).  The first controller uses a simple 2-DOF vehicle model to predict the trajectory for different series of steering sequences and is presented in detail in Section~\ref{ss:2DOFModel}. The second controller, described in Section~\ref{ss:14DOFModel}, uses a more complex 14-DOF vehicle model. These two models are compared in their ability to successfully navigate the driven HMMWV vehicle through two obstacle fields, on rigid flat terrain and then granular terrain.
 
 As mentioned previously, exhaustive search space~\cite{ModelFidelity2016} is used to solve the optimal control problem at each time step. The steering space is discretized into five possible steering angles, while the prediction horizon is split into four intervals. This results in 625 different steering sequence possibilities and therefore 625 different path possibilities that are weighed by the controller to determine the optimal steering sequence and resulting forward path. A sample visualization of the different predicted trajectories from the 2-DOF model is presented in Fig.~\ref{fig:PossiblePaths} where, for visualization purposes, only three steering angles over three intervals were considered. A point in polygon algorithm is used to determine which trajectories remain inside of the safe area polygon visualized in Fig.~\ref{fig:LIDARExample} and therefore should be compared to the other possibilities using Eq.~(\ref{e:MPCCost}).
 
@@ -376,21 +603,28 @@ As mentioned previously, exhaustive search space~\cite{ModelFidelity2016} is use
 	\caption{\small Potential Paths predicted by 2-DOF Internal Vehicle Controller Model}  
 	\label{fig:PossiblePaths}
 \end{figure}
-
-\todo[inline]{insert description of the point in polygon algorithm used for this study}
  
+To determine if any point along the path is within the LIDAR sensed safe area polygon, a point in polygon algorithm is used. The algorithm developed for this research is similar to the winding method where the winding method tracks how many times the edges of the polygon wind around the current point of interest. However, the algorithm developed and used in this research is much simpler and quicker and is very similar to that provided in \cite{pointinpolygon2014}. This algorithm checks the quadrant each vertex of the polygon is located in in a frame with origin at the point of interest, and counts the number of times that quadrant changes as the algorithm cycles through all of the vertices to determine if the point of interest is inside the polygon. The motivation for this actually comes from real llife. Imagine sitting in a closed room. A way one could test if they were actually in the room would be to iteratively look at all the corners of the room in sequence. In the person's relative reference frame fixed in its orientation, cycling through the corners of the room one would note the net quadrant change is 4, regardless of how many corners there are. Now if the person were standing outside of the room and performed this same test, they would not that the net quadrant changes was a number other than 4 meaning the room did not enclose them and therefore they are outside of the room. Again the method is similar to the winding method but the algorithm performs and checks different aspects to reach the same conclusion quicker. A note is since for this research a planar LIDAR sensor is used, this algorithm is only developed in two dimensions in the x-y plane. 
+
+To start, the polygon is simply an ordered list of its vertices. Edges are line segments connecting one vertex to the next. The first vertex of the list and the last vertex of the list are also connected to close the polygon.   Next, we consider a reference frame at the point we are testing and express all of the verteces in this relative reference frame. The first vertex is chosen and the quadrant that it resides in is identified. Then the next vertex is chosen and its quadrant is identified as well. If the two points fall in the same quadrant, then nothing happens and the next vertex in the list is checked. However, if quadrant is different from the previous vertex, this changes is noted and a net quadrant change counter records this change. Clockwise is positive so changes in this direction result in +1 being added to the net quadrant change counter while counterclockwise changes result in -1 being added to the counter. In the case where the quadrant changes by two aka. quadrant 1 changes to 3 or 2 to 4 or vice versa, a vector is expressed connecting the old vertex and new vertex. Depending on the direction of the vector and if the y-intercept is above or below zero determines if +2 or -2 is added to the net quadrant change counter. Once the algorithm cycles through all of the vertices, it checks the original vertex in order to close the polygon. If the net quadrant change is 4or -4, then the point is in the polygon. Any other situation means the point is outside of the polygon. This algorithm is efficient, simple, and has been implemented successfully for use in this research. However,this algorithm would need to be rethought for application in 3D space. Figure \ref{fig:PointInPolygon} presents a set of sample points used to show the algorithm effectively checks to see if the points fall within a sample LIDAR SAFE AREA polygon.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\columnwidth]{Figs/PointInPolygon.png}
+	\caption{\small Visualization of Point in Polygon Algorithm Working Successfully}  
+	\label{fig:PointInPolygon}
+\end{figure}
+
 %% ------------------------------------------------------------
 
-\subsection{Multi-DOF Vehicle Dynamics Models}\label{ss:IntModel}
+\section{Multi-DOF Vehicle Dynamics Models}\label{s:IntModel}
 
 The vehicle models embedded in the MPC are simplifications of the full, multi-body based, {\CHRONO} wheeled vehicle model which is being controlled.  Two models were considered initially, providing different levels of fidelity, as described below.
 
 %% ------------------------------------------------------------
 
-\subsubsection{2-DOF Vehicle Model}\label{sss:2DOFModel}
-The standard vehicle model used in recently developed MPC obstacle avoidance algorithms such as~\cite{ModelFidelity2016} is the 2-DOF yaw plane vehicle model. These models normally either assume constant cornering stiffness or the nonlinear Pacejka Magic Formula Tire Model~\cite{Pacejka1997} to predict the ground tire interaction forces. For this study, the Pacejka Magic Formula is used to predict tire forces in the vehicle models.   
-
-\todo[inline]{insert brief description of the Pacejka Magic Formula Tire Prediction Forces, maybe provide only the equations and leave the derivation to the sources}
+\subsection{2-DOF Vehicle Model}\label{ss:2DOFModel}
+The standard vehicle model used in recently developed MPC obstacle avoidance algorithms such as~\cite{ModelFidelity2016} is the 2-DOF yaw plane vehicle model. These models normally either assume constant cornering stiffness or the nonlinear Pacejka Magic Formula Tire Model~\cite{Pacejka1997} to predict the ground tire interaction forces. For this study, the Pacejka Magic Formula is used to predict tire forces in the vehicle models. This force model is presented in the future Section \ref{s:Pacejka}.   
 
 A visual representation of the 2-DOF yaw plane vehicle model can be found in Fig.~\ref{fig:2DOF}. The 2-DOF model is described by the following first-order ordinary differential equations:
 
@@ -398,7 +632,7 @@ A visual representation of the 2-DOF yaw plane vehicle model can be found in Fig
 \dot{V} = \left(F_{y,f} + F_{y,r}\right)/{M - U_0r} 
 \end{equation}
 \begin{equation}\label{e:2DOF_rdot}
-\dot{r} = \left(F_{y,f} - F_{y,r}\right)/I_{zz}
+\dot{r} = \left(F_{y,f}L_f - F_{y,r}L_r\right)/I_{zz}
 \end{equation}
 \begin{equation}\label{e:2DOF_psidot}
 \dot{\psi} = r 
@@ -414,33 +648,86 @@ where $F_{y,f}$ and $F_{y,r}$ are the lateral tire forces at the front and rear 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1.0\columnwidth]{Figs/2DOF_haraus.png}
+	\includegraphics[width=0.8\columnwidth]{Figs/2DOF_haraus.png}
 	\caption{\small 2-DOF Vehicle Model}  
 	\label{fig:2DOF}
 \end{figure}
 
 %% ------------------------------------------------------------
 
-\subsubsection{14-DOF Vehicle Model}\label{sss:14DOFModel}
+\subsection{14-DOF Vehicle Model}\label{ss:14DOFModel}
 A 14-DOF model is often used in studies such as these to test the obstacle avoidance controller with a higher fidelity vehicle model~\cite{ModelFidelity2016, ModelFidelity2013}. A benefit of using the 14-DOF in the controller is the model's ability to predict tire liftoff and account for dynamic effects from suspension systems. For this paper, it is appropriate to also compare performance of the local obstacle avoidance controller running an internal 14-DOF on rigid terrain versus granular terrain.  
 
-The 14-DOF vehicle model consists of one sprung mass connected above four unsprung masses~\cite{RollStudies2007}. The sprung mass is allowed to roll, pitch, and yaw while also displacing laterally, vertically, and longitudinally. This sprung mass contributes six DOF to the model. Each of the four wheels are allowed to bounce vertically and rotate about the wheel horizontal axis. The front two wheels are also free to steer. Each wheel then contributes two DOF to the fourteen DOF model. The model is constrained at a constant longitudinal speed of 8.1 m/s. The equations used for this model, as well as their derivation can be found in~\cite{RollStudies2007}.
+The 14-DOF vehicle model consists of one sprung mass connected above four unsprung masses~\cite{RollStudies2007}. The sprung mass is allowed to roll, pitch, and yaw while also displacing laterally, vertically, and longitudinally. This sprung mass contributes six DOF to the model. Each of the four wheels are allowed to bounce vertically and rotate about the wheel horizontal axis. The front two wheels are also free to steer. Each wheel then contributes two DOF to the fourteen DOF model. The model is constrained at a constant longitudinal speed of 8.1 m/s. The equations used for this model, as well as their derivation can be found in~\cite{RollStudies2007} and visualized in Fig. \ref{fig:14DOF}.
 
-\todo[inline]{consider actually putting in the equations used for the 14DOF vehicle model here}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/14DOF_Stein.png}
+	\caption{\small Reproduced from \protect\cite{RollStudies2007}. 14-DOF Vehicle Model}  
+	\label{fig:14DOF}
+\end{figure}
 
 %%-------------------------------------------------------------
+\section{Tire Ground Force Model: Pacejka Magic Formula}\label{s:Pacejka}
 
-\subsection{Optimization Problem: Exhaustive Search Space}\label{ss:Optimization}
+The Pacejka Magic Formula is a semi-empirical tire model developed in 1987 by Hans B. Pacejka from Delft University of Technology, Egbert Bakker from Volvo Cars, and Lars Nyborg from Volvo Cars \cite{TireSensitivityStudy}. This model was developed further by Pacejka and commercially known as the "MF-Tire." The Magic Formula is capable of characterizing a tire with a large set of coefficients obtained from experiments. These coefficients are then used to calculate lateral, longitudinal forces as well as the self aligning torque experienced by a tire interacting with the ground. 
+
+\begin{equation}\label{e:MagicA}
+A = B\left(F_z\right)\cdot\alpha 
+\end{equation}
+\begin{equation}\label{e:MagicLateral}
+F_y = D\left(F_z\right)\cdot sin\left\{C\left(F_z\right)\cdot atan\left[A-E\left(F_z\right)\cdot A+E\left(F_z\right)\cdot atan\left(A\right)\right]\right\}
+\end{equation}
+
+The lateral forces at a wheel used in the previously described 2-DOF vehicle model are calculated using Equations \ref{e:MagicA} and \ref{e:MagicLateral} for the case of pure lateral slip.  $F_{z}$ is the vertical load at the axle. $\alpha$ is the lateral tire slip angle. $B\left(\cdot\right)$, $C\left(\cdot\right)$, $D\left(\cdot\right)$, and $E\left(\cdot\right)$ are functions of the tire vertical load $F_{z}$ and these relationships are described in \cite{Pacejka2012}. The slips at a front and rear tire are calculated using Equations \ref{e:SlipFront} and \ref{e:SlipRear} respectively where $\delta_f$ is the steering angle of the front wheel.
+
+\begin{equation}\label{e:SlipFront}
+\alpha_f = tan^{-1}\left( \frac{V+L_{f}r}{U_0} - \delta_f\right) 
+\end{equation}
+\begin{equation}\label{e:SlipRear}
+\alpha_r = tan^{-1}\left( \frac{V-L_{r}r}{U_0}\right)
+\end{equation}
+
+The tire vertical load is then required as an input to Equations \ref{e:MagicA} and \ref{e:MagicLateral}. Longitudinal load tranfer is accounted for when calculating front and rear tire vertical loads. Justification for this inclusion can be found in \cite{ModelFidelity2016}. Equations \ref{e:FrontLoad} and \ref{e:RearLoad} are then used to calculate the front and rear tire loads $F_{z,f}$ and $F_{z,r}$ and input into Equations \ref{e:MagicA} and \ref{e:MagicLateral}.
+
+\begin{equation}\label{e:FrontLoad}
+F_{z,f}= \frac{MgL_r + MVrh_CG}{L_f+L_r} 
+\end{equation}
+\begin{equation}\label{e:RearLoad}
+F_{z,r}= \frac{MgL_f - MVrh_CG}{L_f+L_r} 
+\end{equation}
+
+The Magic Formula characterizes the tire's interaction with rigid ground with a set of coefficients and uses those coefficients to match the Magic Formula with experimental data. Then a tire interacting with one type of pavement will have different Magic Formula parameters than the same tire interacting with a different type of pavement. However, the Magic Formula models tire ground interactions on rigid ground, not granular terrain i.e. there is not a granular terrain Magic Formula. There is then a mismatch between the internal controller models and the plant vehicle when controling the vehicle on granular terrain, but this research first seeks to identify what role that mismatch plays in controller performance. 
+
+\todo[inline]{maybe clean up the end here}
+
+%%-------------------------------------------------------------
+\section{Optimization Problem: Exhaustive Search Space}\label{s:Optimization}
 
 \todo[inline]{insert description of the exhaustive search space method used to find the optimal solution in this study}
 
+\begin{figure}
+	\centering
+	\begin{subfigure}[t]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{Figs/MPCPath625.png}
+		\caption{{\small All Possible Path Possibilities}}   
+		\label{fig:Paths}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{Figs/MPCPath625_withLIDAR.png}
+		\caption{\small All Path Possibilities Determined if Safe or Not}   
+		\label{fig:PathsSafe}
+	\end{subfigure}
+	\caption{\small Exhaustive Search Space Paths Checked with Point in Polygon Algorithm}
+	\label{fig:SearchPaths}
+\end{figure}
 
 %%============================================================
 
-\section{Experimental Setup}\label{s:ExpSetup}
-
-\subsection{Evaluation Metrics}\label{ss:Metrics}
-Five evaluation metrics will be used to compare one test performance to the other. First, all test runs will be compared based on the time to reach the target, $T_{target}$ to determine which controller leads the vehicle to the target point quickest. Second, the closest distance the vehicle reaches to any obstacle, $d_{min}$, will be measured. Third, the control effort will be calculated and compared between test cases. The better test case will have a lower controller effort value. Finally, the maximum and average lateral accelerations will be calculated and compared. The accelerations are calculated at the driver's position in the chassis. Using the DEM-P method of simulation results in noisy acceleration data. To address this, acceleration data is filtered to remove noise. These five evaluation metrics provide a consistent methodology for comparing one test case with another, regardless of the terrain type and underlying analytical controller model.
+\chapter{EXPERIMENTAL SETUP}\label{c:ExpSetup}
 
 The model to be controlled (the {\em plant}) is a full-vehicle {\ChronoVehicle} model of an HMMWV, which includes multi-body subsystems for the suspensions, steering, driveline, and powertrain, and is available in the {\CHRONO} package.
 
@@ -463,9 +750,12 @@ The connection between powertrain and driveline is a force-displacement interfac
 
 For mobility studies on deformable terrain, provided that the tire inflation pressure is comparable or larger than the average ground pressure, according to the postulate by Wong~\cite{wong93} the tire can be considered in a so-called {\em rigid regime}.  As such, tire deformation can be ignored and the vehicle's tires modeled using rigid contact shapes.  The HMMWV tire model used here is thus represented by a cylinder with a radius of $0.47$~m ($18.5$~in) and a width of $0.254$~m ($10$~in).
 
+\section{Evaluation Metrics}\label{s:Metrics}
+Five evaluation metrics will be used to compare one test performance to the other. First, all test runs will be compared based on the time to reach the target, $T_{target}$ to determine which controller leads the vehicle to the target point quickest. Second, the closest distance the vehicle reaches to any obstacle, $d_{min}$, will be measured. Third, the control effort will be calculated and compared between test cases. The better test case will have a lower controller effort value. Finally, the maximum and average lateral accelerations will be calculated and compared. The accelerations are calculated at the driver's position in the chassis. Using the DEM-P method of simulation results in noisy acceleration data. To address this, acceleration data is filtered to remove noise. These five evaluation metrics provide a consistent methodology for comparing one test case with another, regardless of the terrain type and underlying analytical controller model.
+
 %%-------------------------------------------------------------
 
-\subsection{Simulation Parameters}\label{ss:SimParameters}
+\section{Simulation Parameters}\label{s:SimParameters}
 
 \begin{table}
 \begin{center}
@@ -555,11 +845,7 @@ The following vehicle parameters are maintained throughout all of the executed t
 
 %%-------------------------------------------------------------
 
-\subsection{Rigid Terrain Simulation}\label{sss:RigidSim}
-
-%%-------------------------------------------------------------
-
-\subsection{Granular Terrain Simulation}\label{sss:GranSim}
+\section{Granular Terrain Simulation}\label{s:GranSim}
 
 Due to the large-scale nature of the simulations in this study, generating granular particles distributed across the entire obstacle field is both computationally exhausting and unreasonable. Instead, we adopt a moving-patch approach. Consider an AGV on a large terrain patch of $100$ by $100$ meters. Since we are primarily interested in the vehicle behavior and performance and not explicitly in the terrain behavior, we assume only a small patch of granular terrain underneath and around the vehicle is significant. This idea promoted the development of a relocating granular patch which enables simulations of a vehicle traversing granular terrain over a large area, without the need to generate particles everywhere throughout that area. 
 
@@ -570,7 +856,9 @@ Due to the large-scale nature of the simulations in this study, generating granu
 	\label{fig:granPatch}
 \end{figure}
 
-This mechanism allows a user to generate granular particles within a specified distance of the vehicle's CoG. Figure~\ref{fig:granPatch} presents the patch of granular terrain underneath the {\CHRONO}  HMMWV that moves with the vehicel. The particles are contained within four rigid walls to prevent them from escaping the desired terrain area. As the vehicle moves across the terrain, this patch maintains granular material underneath the vehicle by consistently relocating particles that are too far away from it. When the vehicle location comes within a certain predefined distance of any of the walls, a band of particles from the opposite end of the granular patch are relocated past the closest wall and all of the walls are shifted in that direction. Each of these relocation steps keeps the vehicle on top of granular terrain at all times. Depending on the vehicle, this granular patch can be resized for both computational efficiency and to guarantee the vehicle maintains a reasonable distance from the walls to prevent any boundary effects. This newly developed method of simulating granular terrain for AGV's is omnidirectional in the ground plane, allowing the vehicle to move in any direction while the terrain patch relocates and responds to that movement, thus enabling simulations over arbitrarily large areas.
+\todo[inline]{create in depth description of the relocating particles algorithm}
+
+This mechanism allows a user to generate granular particles within a specified distance of the vehicle's CoG. Figure~\ref{fig:granPatch} presents the patch of granular terrain underneath the {\CHRONO}  HMMWV that moves with the vehicle. The particles are contained within four rigid walls to prevent them from escaping the desired terrain area. As the vehicle moves across the terrain, this patch maintains granular material underneath the vehicle by consistently relocating particles that are too far away from it. When the vehicle location comes within a certain predefined distance of any of the walls, a band of particles from the opposite end of the granular patch are relocated past the closest wall and all of the walls are shifted in that direction. Each of these relocation steps keeps the vehicle on top of granular terrain at all times. Depending on the vehicle, this granular patch can be resized for both computational efficiency and to guarantee the vehicle maintains a reasonable distance from the walls to prevent any boundary effects. This newly developed method of simulating granular terrain for AGV's is omnidirectional in the ground plane, allowing the vehicle to move in any direction while the terrain patch relocates and responds to that movement, thus enabling simulations over arbitrarily large areas.
 
 For our simulations, the granular patch was maintained at a size of roughly $6.6$ by $6.6$ meters.  This number was assigned as two times the largest dimension of the vehicle.  The dimensions of the patch are not constant, however, since the patch expands in the direction of relocation by two times the largest particle radius every time the advancing wall is shifted.  This is done in order to avoid particle overlap, since the relocated particles are moved to a position that is shifted one largest particle radius ahead of the particles adjacent to the advancing wall.  After relocation, the walls of the granular patch are given a recovery velocity such that the granular patch regains its original dimensions in $0.1$ seconds.  This recovery time should be small relative to the duration of the simulations, and in general it will also depend on the velocity of the vehicle, since the granular patch should completely recover its dimensions between subsequent relocations.
 
@@ -583,24 +871,118 @@ Since the granular patch used in our simulations contains more than $50,000$ uni
 
 We note that in the case of the HMMWV, the vehicle tire width is equal to only approximately $2.5$ particle diameters in the granular patch.  This is less than ideal.  However, a more suited value of $10$ particle diameters per tire width would increase the number of particles in the granular patch to more than $3$ million, which would result in prohibitively slow simulations, particularly for events corresponding to physical time durations on the order of $10$ seconds or more.
 
+\section{Hardware and Materials}\label{s:Hardware}
 
+The simulations throughout this research were performed on a Quantum TXR430-512R computer with Scientific Linux 7.2 installed as the primary operating system and an Ubuntu 16.04 virtual machine. The specifications of the computer are outlined in Table \ref{t:galerkin}. MATLAB 2015b was used to generate all plots in a postprocessing scripts and determine evaluation metrics from each test case. POVRAY was used to generate visualizations of the performed simulations. Due to the long runtimes of each granular simulation, realtime visualization is not possible or necessary. Therefore, visualization with POVRAY is used. Simulations output large POVRAY data files that describe the body locations, sizes, and orientations at each time step. A set of scripts in Python 2.7 were developed to generate images from the POVRAY output data files and then stitch the images together to create a 60 fps video with a prescribed camera angle. The user could define using the scripts the location and orientation of the camera, what point the camera should look at, and if the camera should follow the vehicle throughout the video. This tool allows for simple and effective development of videos and images as a postprocessing method. Overall, all work will be accomplished using this computer and resources accessible on this computer. This computer outlined below is designed to run simulations with large amounts of bodies in a quick efficient manner.
+
+\begin{table}
+\begin{tabularx}{\textwidth}{|>{\setlength\hsize{0.7\hsize}\setlength\linewidth{\hsize}}X|>{\setlength\hsize{1.0\hsize}\setlength\linewidth{\hsize}}X|>{\setlength\hsize{1.8\hsize}\setlength\linewidth{\hsize}}X|>{\setlength\hsize{0.5\hsize}\setlength\linewidth{\hsize}}X|}
+\hline
+\textbf{Identifier} & \textbf{Basic Information} & \textbf{Additional Information} & \textbf{Quantity}\\
+\hline
+\textbf{Architecture} &
+Quantum TXR430-512R &
+$\cdot$ Tower / 4U Convertable Chassis \newline
+$\cdot$ Supports 2x E5-2600 v3 Processors \newline
+$\cdot$ DDR4 Memory \newline
+$\cdot$ Supports Up To 3x 5.25IN Bays \newline
+$\cdot$ 8x 3.5IN Hot-Swap HDD Bays \newline
+$\cdot$ Up To 4x Double-Width GPU \newline
+$\cdot$ Up To 1TB DDR4 Memory \newline
+$\cdot$ Dual Gigabit Ethernet LAN \newline
+$\cdot$ 2000W Redundant Power Supplies
+&
+1 \\
+\hline
+\textbf{Processor} &
+Intel Xeon E5-2687W v3 &
+10C, 3.1 GHz 25M, Support DDR4-2133 &
+2 \\
+\hline
+\textbf{Memory} &
+32GB DDR4 &
+2133MHz LR ECC LRDIMM &
+8 \\
+\hline
+\textbf{Primary Storage} &
+512 GB 2.5 SATA III &
+Internal Solid State Drive (SSD) ** OS DRIVE ** &
+1 \\
+\hline
+\textbf{Secondary Storage} &
+1.8 TB SAS &
+12Gb/s 2.5InternalHardDrive**RAID10** &
+8 \\
+\hline
+\textbf{RAID Controller} &
+LSI 9300 MegaRAID SAS 9361-8i (LSI00417) PCI &
+$\cdot$ Express 3.0x8 Low Profile SATA/SAS \newline
+$\cdot$ 1 GB Cache \newline
+$\cdot$ High Performance Eight-Port 12 Gb/s RAIDController
+&
+1 \\
+\hline
+\textbf{RAID Cache} &
+LSI LSICVM02 & 
+(LSI00418) CacheVault Accessory Kit for 9361 Series) &
+ \\
+\hline
+\textbf{GPU} &
+Nvidia Tesla K80 &
+24 GB GDDR5 384-bit PCI Express 3.0 - Passive Cooling &
+3 \\
+\hline
+\textbf{GPU Cooling} &
+Passive Cooling &
+Passive GPU Kit for 4U 4GP USystem & 
+1 \\
+\hline
+\textbf{Power} &
+PC Smart UPS X 3000VA &
+Rack/Tower LCD100-127V &
+1 \\
+\hline
+\multicolumn{2}{|c|}{\multirow{2}{*}{\textbf{Internal Cabling}}} &
+0.6m Internal Cable SFF8643 to x4 SATA HDD (mini SASHD to SATA data port) &
+2 \\
+\hhline{~~--}
+\multicolumn{2}{|c|}{} &
+2.5" to 3.5" SATA/SAS6Gb SSD Hard Drive Converter / Adapter / Bracket &
+9 \\
+\hline
+\multicolumn{2}{|c|}{\multirow{3}{*}{\textbf{Additional Components}}}  &
+4U / Tower Conversion Kit / Rail Kit &
+1 \\
+\hhline{~~--}
+\multicolumn{2}{|c|}{} &
+Windows 8.1 Profesional 64Bit &
+1\\
+\hhline{~~--}
+\multicolumn{2}{|c|}{} & 
+Samsung S24D300H 24IN LCD Monitor &
+1 \\
+\hline
+\end{tabularx}
+\caption{\small Hardware Components of Computer Used for Parallel Simulations}
+\label{t:galerkin}
+\end{table}
 
 %% ============================================================
 
-\section{EXPERIMENTAL RESULTS AND DISCUSSION}\label{s:results}
+\chapter{EXPERIMENTAL RESULTS AND DISCUSSION}\label{c:results}
 
 This section summarizes the results of the four tests listed in Table~\ref{t:TestMatrix}. 
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{\columnwidth}
+	\begin{subfigure}[b]{0.49\columnwidth}
 		\centering
 		\includegraphics[height=\columnwidth]{Figs/ObstacleField1Trajectories.png}
 		\caption{{\small Vehicle trajectories.}}   
 		\label{fig:ObstacleField1Trajectories}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{\columnwidth}
+	\begin{subfigure}[b]{0.49\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{Figs/SteeringCommandsField1.png}
 		\caption{\small Steering commands.}   
@@ -612,14 +994,14 @@ This section summarizes the results of the four tests listed in Table~\ref{t:Tes
 
 \begin{figure}
 	\centering
-	\begin{subfigure}[b]{\columnwidth}
+	\begin{subfigure}[b]{0.49\columnwidth}
 		\centering
 		\includegraphics[height=\columnwidth]{Figs/ObstacleField2Trajectories.png}
 		\caption{{\small Vehicle trajectories.}}   
 		\label{fig:ObstacleField2Trajectories}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{\columnwidth}
+	\begin{subfigure}[b]{0.49\columnwidth}
 		\centering
 		\includegraphics[width=\columnwidth]{Figs/SteeringCommandsField2.png}
 		\caption{\small Steering commands.}   
@@ -629,7 +1011,7 @@ This section summarizes the results of the four tests listed in Table~\ref{t:Tes
 	\label{fig:Obst2TestData}
 \end{figure}
 
-\begin{table*}
+\begin{table}
 		\centering
 \begin{tabular}{ ||p{6cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}||  }
 		\hline
@@ -652,9 +1034,9 @@ This section summarizes the results of the four tests listed in Table~\ref{t:Tes
 \end{tabular}
 \caption{Test Evaluation Metrics Summary on Obstacle Field 1}
 \label{t:EvalMetricsObst1}
-\end{table*}
+\end{table}
 
-\begin{table*}
+\begin{table}
 		\centering
 \begin{tabular}{ ||p{6cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}||  }
 		\hline
@@ -677,13 +1059,13 @@ This section summarizes the results of the four tests listed in Table~\ref{t:Tes
 \end{tabular}
 \caption{Test Evaluation Metrics Summary on Obstacle Field 2.}
 \label{t:EvalMetricsObst2}
-\end{table*}
+\end{table}
 
 The trajectories for the four performed tests are presented in Figs.~\ref{fig:ObstacleField1Trajectories} and \ref{fig:ObstacleField2Trajectories}, for obstacle fields 1 and 2, respectively. The associated steering commands generated by the controller are presented in Figs.~\ref{fig:SteeringCommandsField1} and \ref{fig:SteeringCommandsField2}. 
 
-The evaluation metrics for each test, as defined in Section~\ref{ss:Metrics}, are tabulated for each obstacle field in Tables~\ref{t:EvalMetricsObst1} and \ref{t:EvalMetricsObst2}. 
+The evaluation metrics for each test, as defined in Section~\ref{s:Metrics}, are tabulated for each obstacle field in Tables~\ref{t:EvalMetricsObst1} and \ref{t:EvalMetricsObst2}. 
 
-\subsection{Influence of model fidelity}
+\section{Influence of model fidelity}
 
 Assessing the effect of internal vehicle model fidelity on controller performance when the vehicle navigates on rigid terrain (comparison of tests 1 and 2), we make the following observations:
 \begin{itemize}
@@ -701,7 +1083,7 @@ A similar comparison can be made for the case of obstacle avoidance on granular 
 
 The 2-DOF and 14-DOF internal vehicle models were derived using rigid ground assumptions, yet they are still capable of successfully and safely navigating the simulated vehicle through an obstacle field on granular terrain. The monitored metrics indicate a slight drop in controller performance when using the 2-DOF model. However, these gains are outweighed by the benefits, in terms of required computational effort, offered by implementing the lower-fidelity 2-DOF model. 
 
-\subsection{Influence of terrain type}
+\section{Influence of terrain type}
 
 Turning next to evaluating the 14-DOF internal controller model when navigating on rigid versus granular terrain (comparison of tests 2 and 4), we draw the following conclusions:
 \begin{itemize}
@@ -712,7 +1094,7 @@ Turning next to evaluating the 14-DOF internal controller model when navigating 
 \end{itemize}
 
 A similar analysis can be performed on the 2-DOF model when used to control a vehicle on either rigid or granular terrain (comparison of tests 1 and 3). Unlike the 14-DOF model, the simpler 2-DOF model does a better job of approaching the obstacles more closely when controlling a vehicle on rigid rather than on granular terrain. Related to this, the controller effort on rigid terrain (test 1) is lower than that required on granular terrain (test 3). 
-%come up with some explanations for this
+
 
 The forces the vehicle experiences from driving on granular terrain can be much different than forces on simple rigid ground. Examining Figs.~\ref{fig:ObstacleField1Trajectories} and \ref{fig:ObstacleField2Trajectories}, the vehicle navigating on granular terrain does not turn as sharply for a given steering command as the vehicle does on rigid ground terrain. To understand the different behavior between a vehicle driving on rigid and granular terrain, a parametric study should be performed analyzing the vehicle driving on a variety of granular terrains with different granular parameters. 
 
@@ -720,33 +1102,289 @@ Tests 3 and 4 were performed on granular terrain modeled as randomly packed unif
 
 %% ============================================================
 
-\section{FINAL EXPERIMENT WITH NEW VEHICLE MODEL ON GRANULAR MATERIAL}\label{s:finalResults}
+\chapter{IMPROVED VEHICLE MODEL ON GRANULAR MATERIAL}\label{c:improvedModel}
+
+\section{Bekker/Wong Load Sinkage Relationship}\label{s:BekkerWong}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/tireRolling.png}
+	\caption{\small Terrain interactions on a single wheel on soft soil}  
+	\label{fig:wheelTerrain}
+\end{figure}
+
+Often the interaction between a rigid tire and soft soil is modelled using terramechanics relations originating from the work of Bekker and Wong \cite{wong93}. Penetration tests were performed to simulate the contact area of a tire or track interacting with soft ground and the pressure $p$ and sinkage $z$ were measured for the array of experiments. Based on this experimental data, Bekker proposed the well known load-sinkage relationship in Equation \ref{e:BekkerLoadSinkage} \cite{wong93}. $n$ is an exponent of deformation, $b$ is the width of the tire, $k_c$ is the cohesive modulus of deformation, and $k_\phi$ is the frictional modulus of deformation.
+
+\begin{equation}\label{e:BekkerLoadSinkage}
+p = \left(\frac{k_c}{b} + k_\phi\right)z^n
+\end{equation}
+
+If the normal stress is modelled anywhere along the wheel-terrain interface as Bekker proposed, then Equation \ref{e:BekkerLoadSinkage} becomes Equation \ref{e:modifiedNormal} where $\theta$ is defined in Figure \ref{fig:wheelTerrain}.
+
+\begin{equation}\label{e:modifiedNormal}
+\sigma\left(\theta\right) = \left(\frac{k_c}{b} + k_\phi\right)\zeta\left(\theta\right)^n
+\end{equation}
+
+Using terramechanics relations as in \cite{wong93}, the shear stress $\tau$ can then be determined along the wheel-terrain interface with Equation \ref{e:shearStress} where $c$ is the terrain cohesion, $\phi$ is the internal friction angle of the granular terrain, $r$ is the wheel radius, $K$ is the shear deformation modulus, and $i$ is the wheel slip ratio defined in Equation \ref{e:wheelSlipRatio}. $\omega$ is the angular speed of the wheel and $v_t$ is the speed of its center \cite{Ghotbi2016}. 
+
+\begin{equation}\label{e:shearStress}
+\tau\left(\theta\right) = [c+\sigma\left(\theta\right)tan\phi][1 - e^{-r[\theta_1 - \theta - \left(1-i\right)\left(sin\theta_1 - sin\theta\right)]/K}]
+\end{equation}
+
+\begin{equation}\label{e:wheelSlipRatio}
+i = \frac{\left(r\omega-v_t \right)}{r \omega}
+\end{equation}
+
+\section{New Simplified Force Model}\label{s:NewForce}. 
+
+The results in Chapter \ref{c:results} promote the need for a simple yet improved method of estimating the tire forces at the ground tire contact patch when a vehicle is operating on soft or granular terrain. A benefit to the Pacejka Magic Formula presented in Section \ref{s:Pacejka} is tire force calculation is backed by experimental data and the functions are shaped by a large number of experimentally determined parameters. However, the Magic Formula was derived for rigid ground applications only and does not succeed in estimating tire forces on granular terrain. The Magic Formula overestimates the lateral and longitudinal tire forces the vehicle experiences for any given slip angle as it does not take into account the shear strength of the soil. Therefore a simplified method of estimating the lateral tire forces at a tire ground contact patch was developed. This model is then used on the 2-DOF analytical vehicle modelto estimate lateral tire forces and better predict vehicle trajectories on granular terrain.
+
+Rather than using Equation \ref{e:modifiedNormal} to calculate the normal stress at the tire ground contact patch, instead the normal load is calulated using Equations \ref{e:FrontLoad} and \ref{e:RearLoad}. Then the following assumptions are made. First, the tire ground contact patch is assumed to be square of side length $b$ which represents the width of the tire. Second, we assume a constant normal stress $\sigma$ throughout the contact patch such that the total force contribution from this normal stress is equal and opposite the normal load calculated in Equations \ref{e:FrontLoad} and \ref{e:RearLoad}. This leads to the simplified estimate of tire ground patch normal stress in Equation \ref{e:simplifiedNormal}. Third, we assume the tangential stress along the tire contact patch to be constant as well. These assumptions lead to the simplification of \ref{e:shearStress} and when we only consider the pure lateral slip case simplifies to Equation \ref{e:simplifiedShear}.
+
+\begin{equation}\label{e:simplifiedNormal}
+\sigma = \frac{F_z}{b^2}
+\end{equation}
+
+\begin{equation}\label{e:simplifiedShear}
+\tau = [c+\sigma tan\phi][1 - e^{-r[\frac{b}{r} - sin\left(\frac{b}{r}\right)]/K}]
+\end{equation}
+
+Using the simplified constant stress relations and trigonometry, the lateral force is then calculated using Equation \ref{e:newLatForce}. Though this development is the result of a handful of simplifying assumptions, the results of the formulation make sense. A comparison between the force prediction as a fucntion of slip as predicted by the Magic Formula is compared to this new force model prediction in Figure \ref{fig:newForceComparison}. Intuitively one would expect these sorts of results because on granular terrain the tire ground contact patch is subject to a much more limited shear strength than a tire operating on rigid ground. This new force model then takes into account the cohesion and internal friction angle of the granular terrain in a meaningful way. The new model predicts higher lateral forces when a more cohesive soil or terrain with higher friction angle is used and vice versa. 
+
+\begin{equation}\label{e:newLatForce}
+F_y = -\tau b^2 sin\left(\alpha\right)
+\end{equation}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/forceComparison.png}
+	\caption{\small Comparison of Magic Formula Lateral Force Prediction to New Force Model}  
+	\label{fig:newForceComparison}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/variedPhi.png}
+	\caption{\small Effect of varying internal friction angle $\phi$ on lateral force prediction}  
+	\label{fig:newForceComparison}
+\end{figure}
+
+\section{Open Loop Comparisons}\label{s:OpenLoop}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/openLoopSteer.png}
+	\caption{\small Steering Sequence used for Open Loop Simulations}  
+	\label{fig:openSteer}
+\end{figure}
+
+To justify that the new force model better models the lateral ground interaction force between a tire and granular terrain, a set of open loop simulations were performed. In these simulations, the HMMWV was initialized at rest, quickly accelerated to 8.3 m/s, and continued at this speed until the simulation has run for 10 seconds. Then the vehicle undergoes the steering sequence presented in Figure \ref{fig:openSteer} which consists of the vehicle steering left with a steering angle of 10 degrees for 5 seconds followed by steering right at a steering angle of -10 degrees for another 5 seconds. In this open loop test we are only interested in the vehicle's trajectory for the last 10 seconds of the simulation so only this time frame is considered and shown in plots.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/trajectoryComparison_png.png}
+	\caption{\small Open Loop Trajectory of HMMWV over non-rotating granular terrains with different interparticle friction coefficients $\mu$}  
+	\label{fig:openLoopmu}
+\end{figure}
+
+Figure \ref{fig:openLoopmu} presents the resulting trajectories of 7 different open loop simulations run with this steering sequence with the parameters just discussed. One simulation was run on rigid flat ground while the other 6 were run on granular terrain consisting of non-rotating particles of inter-particle friction coefficients varying from $\mu$=0.66 to $\mu$=0.9. Lower values of $\mu$ were considered and tested, but these simulations resulted in the vehicle simply initializing and remaining stuck at the location where it started, constantly spinning its tires without making any forward progress. From these results it is shown that a vehicle operating on granular terrain will steer less sharply than the same vehicle operating on rigid ground undergoing the same steering sequence at the same speed. From these simulations we see there are clear differences in how a vehicle performs on rigid ground versus on granular terrain and this difference needs to be accounted for when attempting to model vehicle dynamic performance using simplified analytical equations. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/MagicvsNew.png}
+	\caption{\small Comparison of Trajectory Predicted by 2-DOF model using the Magic Formula to estimate Tire Forces and the 2-DOF model using the new simplified force model}  
+	\label{fig:MagicvsNew}
+\end{figure}
+
+The new force model developed in the previous section seeks to address this difference in vehicle performance based on terrain type. To confirm the new force model does a better job of modeling the lateral force experienced by a tire at the ground tire contact patch, two more open loop simulations were performed. Here the 2-DOF analytical yaw plane vehicle model was simulated for 10 seconds while undergoing the same steering sequence shown in Figure \ref{fig:openSteer}. In one simulation, the 2-DOF model uses the Pacejka Magic Formula to estimate lateral tire forces experienced by the vehicle. The second simulation uses the new force model to estimate the lateral tire forces experienced by the vehicle. These simulation trajectories are presented in Figure \ref{fig:MagicvsNew} along with the Chrono open loop simulations trajectories on rigid ground and nonrotating granular terrain with $\mu$=0.8. The 2-DOF vehicle model using the new force model to predict tire forces matches the Chrono simulation on granular terrain much more closely than the 2-DOF model with  using the Magic formula. Instead the 2-DOF model with the Magic Formula matches the Chrono simulation on rigid ground much better. Even though the results in Chapter \ref{c:results} show the controlled HMMWV was still able to successfully navigate to a target location while avoiding obstacles on granular terrain, there was a clear model mismatch between the internal vehicle controller model and the actual plant vehicle. The 2-DOF model using the PAcejka Magic Formula was overestimating the lateral tire forces because it did not take into account the granular terrain. This new force model does account for the granular terrain and based on Figure \ref{fig:MagicvsNew} does a better job of predicting vehicle trajectories on granular terrain. 
 
 %% ============================================================
 
-\section{CONCLUSIONS}\label{s:conclusion}
+\chapter{SECOND EXPERIMENT TO TEST NEW VEHICLE MODEL}\label{c:Exp2}
 
-In this study, using the multibody physics API {\CHRONO} a simulation has been developed of a HMMWV driving through a user specified obstacle field towards a defined target location. Within this simulation, a MPC LIDAR based local obstacle avoidance controller has been implemented to navigate the vehicle around obstacles as it encounters them. The controller itself uses a simplified analytical vehicle model to predict the actual controlled {\CHRONO} vehicle states within a finite prediction horizon in order to determine the optimal path and steering sequence forward from the current vehicle state. A method of simulating granular terrain for this large obstacle field was developed and implemented for this study. Two separate MPC Algorithms were developed, one that uses a 2-DOF vehicle model to predict {\CHRONO} vehicle states and a 14-DOF model to do the same. These two controllers were used to navigate a {\CHRONO} HMMWV through two obstacle courses on both rigid terrain and then on granular terrain. The results were compared to understand what if any improvements need to be made to the MPC LIDAR based local obstacle avoidance controller to successfully control a vehicle on granular terrain. 
+\section{Experimental Setup}\label{s:ExpSetup2}
+
+\begin{table}
+\begin{center}
+	\begin{tabular}{||c |c | c | c||} 
+		\hline
+		Test  & Obstacle & Terrain  & Controller Vehicle \\
+		Number &  Field & Type & and Force Model\\ [0.5ex] 	
+		\hline\hline
+		1 & 1 & Granular & 2-DOF Magic\\ 
+		\hline
+		2 & 2 & Granular & 2-DOF Magic\\
+		\hline
+		3 & 1 & Granular & 2-DOF New Model\\
+		\hline
+		4 & 2 & Granular & 2-DOF New Model\\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{Compared Simulations for Second Experiment}
+\label{t:TestMatrix2}
+\end{table}
+
+Another set of simulations were performed outlined in Table \ref{t:TestMatrix2}. This experiment consisted of four simulations on the same two obstacle fields as the previous experiment. Two analytical controller models are considered for this experiment, namely the 2-DOF model using the Pacejka Magic Formula to estimate lateral tire forces on the tires and another 2-DOF yaw plane vehicle model using the newly developed force model to estimate lateral tire forces. As was shown in Section \ref{s:OpenLoop}, open loop simulations enforced that this 2-DOF vehicle model with the new force model does a better job of predicting vehicle trajectories on granular terrain than the previously used Magic Formula 2-DOF models. The same evaluation metrics summarized in Section {s:Metrics} are used in this experiment to compare simulation runs and determine which controller actually worked best. However, we are primarily concerned with the Time to Target evaluation metric in this experiment and therefore this will be the most influential factor in determining which controller worked best. 
+
+\section{Results}\label{s:Results2}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\columnwidth}
+		\centering
+		\includegraphics[height=\columnwidth]{Figs/Field1MagicvBekkerTrajectories_cropped.png}
+		\caption{{\small Vehicle trajectories.}}   
+		\label{fig:ObstacleField1TrajectoriesExp2}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{Figs/Field1MagicvBekkerSteeringCommands_cropped.png}
+		\caption{\small Steering commands.}   
+		\label{fig:SteeringCommandsField1Exp2}
+	\end{subfigure}
+	\caption{\small Test results on obstacle field 1.}
+	\label{fig:Obst1TestDataExp2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\columnwidth}
+		\centering
+		\includegraphics[height=\columnwidth]{Figs/Field2MagicvBekkerTrajectories_cropped.png}
+		\caption{{\small Vehicle trajectories.}}   
+		\label{fig:ObstacleField2TrajectoriesExp2}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{Figs/Field2MagicvBekkerSteeringCommands_cropped.png}
+		\caption{\small Steering commands.}   
+		\label{fig:SteeringCommandsField2Exp2}
+	\end{subfigure}
+	\caption{\small Test results on obstacle field 2.}
+	\label{fig:Obst2TestDataExp2}
+\end{figure}
+
+\begin{table}
+		\centering
+\begin{tabular}{ ||p{6cm}|p{3.5cm}|p{3.5cm}||  }
+		\hline
+		Test Number & 1 & 3 \\
+		\hline
+		Controller Model & 2-DOF & 2-DOF \\
+		\hline
+		Terrain & Granular & Granular\\
+		\hline
+		Force Model & Magic Formula & New Force Model\\
+		\hline
+		Time to Target (s)  & 28.32 & 28.15 \\ 
+		\hline
+		Minimum Obstacle Distance (m) & 3.491 & 2.837 \\
+		\hline
+		Controller Effort & 0.0340 & 0.0381 \\
+		\hline
+		Max. Lateral Acceleration (m/s$^{2}$)& 2.47 & 2.69 \\
+		\hline
+		Avg. Lateral Acceleration (m/s$^{2}$) & 0.55 & 0.53 \\
+		\hline
+\end{tabular}
+\caption{Test Evaluation Metrics Summary on Obstacle Field 1}
+\label{t:EvalMetricsObst1Exp2}
+\end{table}
+
+\begin{table}
+		\centering
+\begin{tabular}{ ||p{6cm}|p{3.5cm}|p{3.5cm}||  }
+		\hline
+		Test Number & 2 & 4 \\
+		\hline
+		Controller Model & 2-DOF & 2-DOF \\
+		\hline
+		Terrain & Granular & Granular\\
+		\hline
+		Force Model & Magic Formula & New Force Model\\
+		\hline
+		Time to Target (s)  & 76.64 & 75.58 \\ 
+		\hline
+		Minimum Obstacle Distance (m) & 1.083 & 1.440 \\
+		\hline
+		Controller Effort & 0.0714 & 0.0952 \\
+		\hline
+		Max. Lateral Acceleration (m/s$^{2}$)& 2.55 & 2.75 \\
+		\hline
+		Avg. Lateral Acceleration (m/s$^{2}$) & 0.53 & 0.51 \\
+		\hline
+\end{tabular}
+\caption{Test Evaluation Metrics Summary on Obstacle Field 2}
+\label{t:EvalMetricsObst2Exp2}
+\end{table}
+
+The trajectories for the four performed tests are presented in Figs.~\ref{fig:ObstacleField1TrajectoriesExp2} and \ref{fig:ObstacleField2TrajectoriesExp2}, for obstacle fields 1 and 2, respectively. The associated steering commands generated by the controller are presented in Figs.~\ref{fig:SteeringCommandsField1Exp2} and \ref{fig:SteeringCommandsField2Exp2}. 
+
+The evaluation metrics for each test, as defined in Section~\ref{s:Metrics}, are tabulated for each obstacle field in Tables~\ref{t:EvalMetricsObst1Exp2} and \ref{t:EvalMetricsObst2Exp2}. 
+
+From the results summarized in the plots and tables, the 2-DOF model using the new force model to predict lateral tire forces results in the HMMWV navigating to the target quicker than the 2-DOF controller using the Magic Formula to estimate tire forces. This improved performance is witnessed on both obstacle fields. On Obstacle Field 1, the new force 2-DOF model navigates closer to the single obstacle than the 2-DOF Magic model but this is just the opposite on obstacle field 2. On both obstacle fields, the controller effort of the new force 2-DOF model is slightly higher than the controller effort of the 2-DOF Magic controller. Finally, the average and lateral accelerations experienced by the vehicle when controlled by each different 2-DOF model are similar and the magnitude differences are negligible. 
+
+Qualitatively examining the trajectories of all four tests, the trajectory of the 2-DOF new forcemodel run appears to be much smoother on both obstacle fields than its 2-DOF Magic controller counterpart. This is evident when looking at the runs on the first obstacle field. The 2-DOF Magic model commands result in the HMMWV taking a much wider turn followed my a more aggresive turning maneuver to reach the target position. However, when the vehicle is controlled by the 2-DOF model with the new force model, the HMMWV takes a more direct route to the target position and this improved performance is expressed in the decreased Time to Target. This difference is due to the Magic Model's overestimation of lateral tire forces that the HMMWV experiences. Since the 2-DOF vehicle model using the Magic formula estimates the vehicle can turn sharper at a given steering angle than the terrain actually allows, the predicted trajectories for any given steering angle are wrong and the HMMWV ends up changing its heading less than the controller predicts. This can also be seen comparing the trajectories on obstacle field 2. Both controllers command the HMMWV to follow similar trajectories, navigating the HMMWV in the same direction around all of the obstacles. Again though the 2-DOF new force model controller trajectory seem smoother of the two. The internal analytical vehicle model matches the plant vehicle better which leads to predicted trajectories that match the actual behavior of the HMMWV. These two facts combined lead to a better controlled HMMWV that navigates the the target quicker than if its trajectories were predicted using the 2-DOF Magic formula model. 
+
+Overall based on the comparison of evaluation metrics and qualitative comparison of the trajectories, in this experiment the controller with the 2-DOF vehicle model using the new force model performed better than the controller using a 2-DOF model with the Magic formula. The trajectories of the controlled HMMWV are smoother and result in quicker Time to Target metrics. It is therefore possible to develop a tire force model which takes into account the soil parameters to estimate the lateral forces at the tire ground contact patch and use this new tire model to better predict vehicle trajectories in a MPC controller. In the future, this 2-DOF vehicle model with the new force model should be used or developed further to better control a wheeled vehicle on flat granular terrain of varying cohesive and shear strengths as well as interparticle friction coefficients. 
+
+%% ============================================================
+
+\chapter{CONCLUSIONS}\label{c:conclusion}
+
+In this study, using the multibody physics API {\CHRONO} a simulation has been developed of a HMMWV driving through a user specified obstacle field towards a defined target location. Within this simulation, a MPC LIDAR based local obstacle avoidance controller has been implemented to navigate the vehicle around obstacles as it encounters them. The controller itself uses a simplified analytical vehicle model to predict the actual controlled {\CHRONO} vehicle states within a finite prediction horizon in order to determine the optimal path and steering sequence forward from the current vehicle state. A method of simulating granular terrain for this large obstacle field was developed and implemented for this study. Two separate MPC Algorithms were developed initially, one that uses a 2-DOF vehicle model using the Pacejka Magic Formula as a tire model to predict {\CHRONO} vehicle states and a 14-DOF model to do the same. These two controllers were used to navigate a {\CHRONO} HMMWV through two obstacle courses on both rigid terrain and then on granular terrain. The results were compared to understand what if any improvements need to be made to the MPC LIDAR based local obstacle avoidance controller to successfully control a vehicle on granular terrain. 
 
 As in \cite{ModelFidelity2016}, the controller with the 14-DOF internal vehicle model performs marginally better than the controller with the 2-DOF internal vehicle model in all situations. However, tests with the 2-DOF controller prove that this controller can still successfully navigate a vehicle through an obstacle field when the vehicle is moving at non-extreme speeds. Using the 2-DOF controller also allows for faster calculation of optimal steering sequences which is required for eventual realtime implementation. Both of the controllers navigated the vehicle worse on granular terrain than on rigid ground terrain, but this is expected since the internal vehicle controller models were derived using rigid ground assumptions. This study also highlights the complexities introoduced to vehicle modeling when the terrain is no longer rigid. Looking at the vehicle trajectories and lateral accelerations on granular terrain, there are clear differences in tire ground interactions when the terrain is now granular. The terrain granular parameters affect the turning characteristics of the vehicle, acceleration abilities, and overall vehicle dynamic performance which is not control predictive with the currently used 2-DOF and 14-DOF analytical vehicle models. 
 
-The results of this study are promising. Since the 2-DOF controller is able to navigate the {\CHRONO} vehicle on this study's granular terrain, then there is some small set of granular terrain on which a 2-DOF model is sufficient for predicting vehicle performance well enough to guide the vehicle successfully and safely to a target point. However, these results also emphasize the need for future research and studies relating to vehicle simulation on granular terrain. This same sort of study should be performed parametrically on a comprehensive set of different granular terrains to understand the difference between vehicle performance on rigid ground and granular terrain. From there, a new intermediate analytical model should be research and developed that is not as complex as the 14-DOF model but does take into account granuler parameters such as the friction angle. 
+From the results of the first experiment, a new lateral tire force model was developed using common terramechanics relationships developed by Wong and Bekker. This new force model uses the cohesive strength and internal friction angle of the granular terrain to calculate the lateral forces experienced by a tire provided the current slip angle and wheel speed. From the first experiment,it was determined that though the 14-DOF internal vehicle model resulted in better controller performance, the complexity of this model made it undesirable for realtime implementation. Though the 2-DOF controller navigated to the target marginally slower, it still did succeed in reaching the target. Therefore the 2-DOF model was deemed desirable for future studies due to its success in reaching the target as well as the quicker runtime speeds necessary to determine a optimal path. For this reason then a second experiment was conducted using twodifferent controllers. The first is the same controller from the first experiment consisting of an internal 2-DOF vehicle model using the Pacejka Magic Formula to predict vehicle trajectories. The second controller uses the 2-DOF vehicle model but uses the new lateral force model to better predict trajectories on granular terrain. These controllers were tested on the same two obstacle fields from the first experiment but solely on a granular terrain resembling a stiff railroad ballast, the same granular terrain as from the first experiment. The new controller performed better than the old controller using the Magic formula to predict tire forces and this improvement is shown by a lower Time to Target as well as smoother trajectories with the second controller. This new intermediate analytical model is not as complex as the 14-DOF model but does take into account granuler parameters such as the friction angle to result in more accurate vehicle trajectory predictions on granular terrain and ultimately a better controlled HMMWV. 
 
-\subsection{Future Work}\label{FutureWork}
+Each of the five objectives have been accomplished through the development and execution of the experiments described in this study. For clarification, each of the five objectives are summarized and how they were accomplished are presented as follows.
+
+\begin{enumerate}
+\item
+Develop a robust simulation environment using {\CHRONO} to simulate granular terrain efficiently over large large terrains without actually modeling every single particle over the large terrain. This was accomplished by leveraging the multibody and parallel computational abilities provided by {\CHRONO}. A novel relocating soil patch was developed to make simulation of a vehicle traversing large granular terrains possible without requiring months of runtime per experiment. 
+\item
+Study the performance of the MPC Controller on granular terrain as compared to that on rigid terrain. The results of this specific performance analysis are summarized in Chapter \ref{c:results}. These results enforced the need for more research into a better method of predicting tire forces at the tire ground patch in a simple manner. 
+\item
+Analyze the impact of fidelity of the internal controller model on speed and performance of the obstacle avoidance controller. These results are summarized in Chapter \ref{c:results} for Experiment 1. Overall similar conclusions were made to those drawn in \cite{ModelFidelity2016}. Namely, the controller using the more complex 14-DOF model resulted in marginally quicker Time to Target metrics than the 2-DOF controller model, but the increased complexity of the 14-DOF model increased controller runtimes making the 14-DOF model an undesirable choice for realtime implementation. The 2-DOF controller did still perform successfully and was chosen for more development to  improve its performance in Experiment 2. The 14-DOF model should be used to determine safety consrtaints to impose on a 2-DOF model used as the controller model. 
+\item
+Improve the controller for better performance on granular terrain. Chapter \ref{c:improvedModel} presents the development of this improved 2-DOF vehicle model which uses a newly developed lateral force model stemming from Bekker and Wong's terramechanics relations to more accurately predict vehicle trajectories on granular terrain. \ref{c:Exp2} presents the results of a second experiment run to confirm the newly developed vehicle model results in better controlled HMMWV performance.  
+\item
+Showcase the potential of controller testing in a high fidelity virtual test environment with {\CHRONO} to assist with initial control algorithm development before physical implementation for vehicular applications. All of the simulations and experiments from this study support and prove this objective. Using {\CHRONO} to create a virtual testing environment made it possible to quickly change aspects of the controller design to understand specific aspects of the control algorithm such as model fidelity or terrain's effect on controller performance. Testing the controller through simulation allowed for quicker and safer experiments than if one were to attempt to run each of these experiments in real life. Though the goal of these virtual experiments is to eventually prepare the controller for real life implementation and tests, these virtual tests should speed up the design process and make real life experiments that much more beneficial and meaningful to the design team. 
+\end{enumerate}
+
+Richard Hamming once said the purpose of computing is insight, not numbers \cite{NumMethods}. All mathematical models are an abstraction of reality, so what the user is interested in exploring or modeling should drive the complexity of the model. Detailed analysis of vehicle performance requires sophisticated high fidelity models often leveraging complex contact algorithms and sophisticated tire behavior representations. Control engineers make use of mathematical models to describe the dynamics of the system they are attempting to control. Linearizations, model simplifications, and other assumptions allow the controller to increase its speed while still describing the desired aspect of the system appropriately. This point is important when considering all of the research and work done to achieve the results of this study. Computer simulations can be extremely beneficial to the design process as long as the user has a strong understanding of the background, mathematical models, and methods that have driven the simulations. However, simulation simply cannot and more importantly should not replace all real life experimentation. No matter how complex a developer makes their simulation, it will still always be an abstraction of reality to some degree. However, it can be an extremely powerful tool in the design process, allowing a user to test core functionalities of their mechanical or controller design to gain insight towards how to improve thier design. When used in this manner, virtual and real life experimentation can cooperatively contribute to quicker and more effective design processes. If more tests are run virtually then this saves money and timefor the team that then runs physical tests on the most promising designs from virtual experimentation.  
+
+This applies directly to all of the work and research performed in this study. This research has provided insight into the MPC LIDAR-based local obstacle avoidance controller. Due to this experiments outlined in this thesis, there is now a better understanding of how model fidelity and terrain affect the performance of this researched controller. From the insight gained from the first experiment, the controller and internal model were improved and tested virtually. The results of the second experiment emphasized that it is possible to develop a simplified vehicle model that predicts its lateral tire forces using simple terramechanics relations and allow the controlled vehicle to better navigate on granular terrain of varying cohesive strength and frictional properties. In these experiments, a high fidelity sophisticated multibody physics model of a HMMWV was used as the plant vehicle due to the goal of this simulation which is to analyze vehicle performance when controlled by different MPC controllers. Inside of the controller then, simplified analytical vehicle models are used which are another level of abstraction in order to quickly predict the trajectory of the simulated HMMWV based on terrain parameters. As simulation methods improve and computational speeds continue increasing, simulation's role in the design process will increase which can lower design costs and improve design speeds as well. 
+
+\section{Future Work}\label{s:FutureWork}
+
+The results of this study are promising. Since the 2-DOF controller is able to navigate the {\CHRONO} vehicle on this study's granular terrain, then there is some small set of granular terrain on which a 2-DOF model using the Magic formula is sufficient for predicting vehicle performance well enough to guide the vehicle successfully and safely to a target point. However, a new force model was developed using terramechanics relations to better approximate the lateral tire forces experienced by the 2-DOF vehicle model which results in better approximations of vehicle trajectories on granular terrain. This research opens up many opportunities and avenues for future research topics. This research lends itself to a variety of different parametric studues to understand how changing aspects of the terrain or controller affects the overall vehicle performance. For example, parametric studies examining controller performance on a wider array of granular terrains would allow for for insight into how granular terrain parameters effect vehicle performance. In this research exhaustive search space was used to find an optimal solution. In the future though, a much quicker optimization method would be necessary to solve the optimal control problem each time step and ultimately implement the controller in realtime applications. 
+
+A newer control algorithm could be developed all together with the goal of navigating a vehicle on all sorts of terrains. If instead of using a constant speed internal vehicle model and searching for an optimal steering sequence only, a controller could search for an optimal steering and acceleration input. If this were the case then the terrain parameters would impose constraints on how quickly a vehicle could actually accelerate on the terrain thus constraining the search space and resulting in a much smarter granular terrain navigation controller. 
+
+Another avenue of research would be to explore improvements to the granular simulations developed in this study. To simulate granular terrain, in this study a novel relocating granular patch mechanism was developed that simulates a significant thickness of granular terrain underneath the vehicle at all times and relocates particles in front of the vehicle as it moves in any direction. This research would not have been feasible without the development of this mechanism, but as with any research topic there are further improvements that could help simulation speeds for these sorts of experiments. One possible improvement would be the implementation of periodic boundary conditions at the walls of the relocating patch to minimize any boundary effects at the tire ground contact patch.
+
+Finally, the research performed here would benefit greatly from physical tests to compliment the results of this study. Insight would be gained relating to hardware and computational speeds necessary to implement this controller on a physical vehicle. 
+
+Overall the terramechanics field is a highly active and current area of research. The research performed in this study promotes the opportunity for many equally exciting research opportunities building off the results of this study.
+
 
 %% ============================================================
 \newpage
-\section{BIBLIOGRAPHY}\label{s:bibliography}
+\addcontentsline{toc}{chapter}{BIBLIOGRAPHY}
+%\chapter{BIBLIOGRAPHY}\label{s:bibliography}
 
+\begin{singlespacing}
 \bibliographystyle{unsrt}
 \bibliography{references}
+\end{singlespacing}
 
 %% ============================================================
-\newpage
-\section{APPENDICES}\label{s:appendices}
-
-%% ============================================================
-
 
 \end{document}
 
