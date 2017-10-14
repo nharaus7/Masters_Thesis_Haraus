@@ -225,7 +225,7 @@ Marquette University, 2017
 
 A Model Predictive Control (MPC) LIDAR-based constant speed local obstacle avoidance algorithm has been implemented on rigid terrain and granular terrain in {\CHRONO} to examine the robustness of this control method. Provided LIDAR data as well as a target location, a vehicle can route itself around obstacles as it encounters them and arrive at an end goal via an optimal route. Using {\CHRONO}, a multibody physics API, this controller has been tested on a complex multibody physics HMMWV model representing the plant in this study. A penalty-based DEM approach is used to model contacts on both rigid ground and granular terrain. We draw conclusions regarding the MPC algorithm performance based on its ability to navigate the {\CHRONO} HMMWV on rigid and granular terrain. A novel simulation framework has been developed to efficiently simulate granular terrain for this application.
 
-Two experiments were conducted to analyze the performance of the MPC LIDAR-based constant speed local obstacle avoidance controller. In the first, two separate controllers were developed, one using a 2-DOF yaw plane analytical model to predict the HMMWV behavior, and the second using a higher fidelity 14-DOF vehicle model. In this first experiment, the two controllers were compared as they controlled the HMMWV on two obstacle fields on both rigid ground and granular terrain to understand the influence of model fidelity and terrain influence on controller performance. Based on these results, an improved lateral force model was developed for use in the 2-DOF vehicle model to better model the tire ground interaction using terramechanics relations. A series of open loop experiments were conducted to confirm this new force model results in better vehicle trajectory predictions. Finally, a second experiment was performed to compare two developed controllers. One used the 2-DOF vehicle model using the Pacejka Magic Formula to estimate tire forces while the second controller used a 2-DOF vehicle model with the newly developed force model to estimate lateral tire forces. The results of these two experiments are summarized in this paper.
+Two experiments were conducted to analyze the performance of the MPC LIDAR-based constant speed local obstacle avoidance controller. In the first, two separate controllers were developed, one using a 2-DOF yaw plane analytical model to predict the HMMWV behavior, and the second using a higher fidelity 14-DOF vehicle model. In this first experiment, the two controllers were compared as they controlled the HMMWV on two obstacle fields on both rigid ground and granular terrain to understand the influence of model fidelity and terrain influence on controller performance. Based on these results, an improved lateral force model was developed for use in the 2-DOF vehicle model to better model the tire ground interaction using terramechanics relations. A series of open loop experiments were conducted to confirm this new force model results in better vehicle trajectory predictions. Finally, a second experiment was performed to compare two developed controllers. One used the 2-DOF vehicle model using the Pacejka Magic Formula to estimate tire forces while the second controller used a 2-DOF vehicle model with the newly developed force model to estimate lateral tire forces. The results of these two experiments are summarized in this thesis.
 
 
 \vfill
@@ -259,7 +259,7 @@ My close friends, for the distractions and adventures that made my time at Marqu
 My adviser, Dr. Jonathan Fleischmann, for the opportunity to work with him for the past few years, enabling me to grow as a student, researcher, engineer, and person. 
 
 
-Dr. Philip Voglewede, for the technical expertise and advice, and for teaching me...and reteaching me...and reteaching me....that spring mass damper systems are in fact everywhere.
+Dr. Philip Voglewede, for the technical expertise advice, and for teaching me...and reteaching me...and reteaching me....that spring mass damper systems are in fact everywhere.
 
 
 All the faculty and staff at Marquette for providing an incredible educational experience.
@@ -304,7 +304,7 @@ Dr. Radu Serban and Dr. Dan Negrut from the Simulation Based Engineering Laborat
 
 Obstacle avoidance is a crucial capability for Autonomous Ground Vehicles (AGVs) of the future. This refers to a ground vehicle's ability to sense its surrounding environment, develop an optimal path around the obstacles in the environment, generate optimal control commands to satisfy that path, and physically navigate around the obstacles safely and to a desired endpoint. Safety is defined as avoiding collisions as well as enforcing limitations on excessive sideslip or tire lift-off. An ideal control algorithm is one that is capable of pushing a vehicle to its performance limits by using knowledge of its dynamic capabilities and surrounding environmental conditions, while still enforcing strict safety requirements. Although previous work has demonstrated use of Model Predictive Control (MPC) algorithms for obstacle avoidance on wheeled vehicles, more work is required to test the fidelity of these algorithms and determine where improvements are needed. One area in which MPC algorithms have yet to be tested is their ability to control a wheeled vehicle on granular terrain. Up to this point, the terrain has been assumed to be rigid and flat. The performance of MPC algorithms on deformable terrain raises additional questions. Do the current most commonly used vehicle models perform successfully within an MPC algorithm on deformable terrain? The present work evaluates, through numerical simulation, the robustness and validity of an MPC algorithm with different vehicle models in an environment more similar to what an off-road military vehicle would experience in combat. This controller could be applied to any car-like wheeled vehicle.
 
-The remainder of this paper is organized as follows. The remainder of Chapter \ref{c:introduction} consists of the problem statement, a thorough literature review into the problem, and the objectives of this research based on the findings of the literature review. Chapter~\ref{c:background} consists of theoretical background and overviews pertinent to this research. This chapter consists of sections presenting multibody dynamics, the penalty method, {\CHRONO} to handle the multibody dynamics, the MPC Controller development, the LIDAR model used, the Pacejka Magic Formula, and an overview of the exhaustive search algorithm used to solve this control problem. In this chapter are also the different simplified, lower-fidelity analytical vehicle models used in the MPC algorithm to predict the {\CHRONO} vehicle behavior for Experiment 1. Chapter~\ref{c:ExpSetup} describes the {\ChronoVehicle} HMMWV model used in this study as the plant model to be controlled and our proposed method for simulating a vehicle driving on deformable terrain over large distances. In this chapter the first numerical simulation used to analyze controller performance is outlined, detailing the different simulations that will be run, the evaluation metrics that will be used to compare them, and the hardware components of the computer used to perform these simulations. Descriptions of the test cases considered for this first experiment and a summary of the metrics used to compare performance of the various tested combinations are provided. Chapter~\ref{c:results} presents the results of the tests performed in Experiment 1 and provides comparisons when the internal controller vehicle model is varied and when the terrain is changed from rigid to granular. Chapter~\ref{c:improvedModel} presents a new intermediate vehicle model that uses terramechanics relations to better predict vehicle trajectories on granular terrain. This chapter also contains open loop comparisons to confirm this model does in fact predict more accurate granular terrain trajectories. Chapter \ref{c:Exp2} contains the description and results of a second experiment performed to test the new vehicle model within the MPC controller. Chapter \ref{c:conclusion} wraps up the paper and presents potential future work based on the results of this study.
+The remainder of this thesis is organized as follows. The remainder of Chapter \ref{c:introduction} consists of the problem statement, a thorough literature review into the problem, and the objectives of this research based on the findings of the literature review. Chapter~\ref{c:background} consists of theoretical background and overviews pertinent to this research. This chapter consists of sections presenting multibody dynamics, the penalty method, {\CHRONO} to handle the multibody dynamics, the MPC Controller development, the LIDAR model used, the Pacejka Magic Formula, and an overview of the exhaustive search algorithm used to solve this control problem. In this chapter are also the different simplified, lower-fidelity analytical vehicle models used in the MPC algorithm to predict the {\CHRONO} vehicle behavior for Experiment 1. Chapter~\ref{c:ExpSetup} describes the {\ChronoVehicle} HMMWV model used in this study as the plant model to be controlled and our proposed method for simulating a vehicle driving on deformable terrain over large distances. In this chapter the first numerical simulation used to analyze controller performance is outlined, detailing the different simulations that will be run, the evaluation metrics that will be used to compare them, and the hardware components of the computer used to perform these simulations. Descriptions of the test cases considered for this first experiment and a summary of the metrics used to compare performance of the various tested combinations are provided. Chapter~\ref{c:results} presents the results of the tests performed in Experiment 1 and provides comparisons when the internal controller vehicle model is varied and when the terrain is changed from rigid to granular. Chapter~\ref{c:improvedModel} presents a new intermediate vehicle model that uses terramechanics relations to better predict vehicle trajectories on granular terrain. This chapter also contains open loop comparisons to confirm this model does in fact predict more accurate granular terrain trajectories. Chapter \ref{c:Exp2} contains the description and results of a second experiment performed to test the new vehicle model within the MPC controller. Chapter \ref{c:conclusion} wraps up the thesis and presents potential future work based on the results of this study.
 
 %% ------------------------------------------------------------
 
@@ -390,7 +390,7 @@ The performed literature review has assisted with refining the goals and means f
 
 \section{Objectives and Methodology}\label{s:ObjectivesMethodology}
 
-The goal of this research is to first understand how model fidelity of the controller model affects overall performance of the obstacle avoidance controller. This leads to a better understanding of vehicle dynamics and performance on granular terrain as well as promotes the development of a controller designed for general terrain travel in the future. From this understanding, the controller and internal models were improved to allow for better controlled vehicle performance on granular terrain. Simulating a vehicle on granular terrain in such scenarios introduces additional challenges related to the sheer number of necessary particles required to properly model the desired terrain patch. This challenge has been addressed by employing a simulation framework for granular terrain described later in this paper.
+The goal of this research is to first understand how model fidelity of the controller model affects overall performance of the obstacle avoidance controller. This leads to a better understanding of vehicle dynamics and performance on granular terrain as well as promotes the development of a controller designed for general terrain travel in the future. From this understanding, the controller and internal models were improved to allow for better controlled vehicle performance on granular terrain. Simulating a vehicle on granular terrain in such scenarios introduces additional challenges related to the sheer number of necessary particles required to properly model the desired terrain patch. This challenge has been addressed by employing a simulation framework for granular terrain described later in this thesis.
 
 The present study has the following five objectives:
 \begin{enumerate}
@@ -505,7 +505,7 @@ In addition, {\ChronoVehicle} offers a variety of tire models and associated tem
 
 %% ------------------------------------------------------------
 
-\section{MPC LIDAR-Based Local Obstacle Avoidance : History and Current Algorithm}\label{s:MPC}
+\section{MPC LIDAR-Based Local Obstacle Avoidance: History and Current Algorithm}\label{s:MPC}
 
 The concept of MPC is to use an internal model of the system one desires to control to predict and optimize future system behavior from the current system state and inputs ~\cite{Allgower&Findeisen2002}. The system behavior is predicted over some defined finite time horizon and the optimal control sequence over the prediction horizon is output. The control sequence is executed for an execution time smaller than the prediction horizon, and the whole process is repeated. The repetition of this process over time creates a feedback loop which continually controls the system, pushing it towards an optimal path.
 
@@ -651,7 +651,7 @@ As mentioned previously, exhaustive search space~\cite{ModelFidelity2016} is use
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{Figs/PathPossibilities.png}
+	\includegraphics[width=0.8\columnwidth]{Figs/PathPossibilities.png}
 	\caption{\small Potential Paths predicted by 2-DOF Internal Vehicle Controller Model}  
 	\label{fig:PossiblePaths}
 \end{figure}
@@ -959,8 +959,47 @@ This mechanism allows a user to generate granular particles within a specified d
 
 For these simulations, the granular patch was maintained at a size of roughly $6.6$ by $6.6$ meters.  This number was assigned as two times the largest dimension of the vehicle.  The dimensions of the patch are not constant, however, since the patch expands in the direction of relocation by two times the largest particle radius every time the advancing wall is shifted.  This is done in order to avoid particle overlap, since the relocated particles are moved to a position that is shifted one largest particle radius ahead of the particles adjacent to the advancing wall.  After relocation, the walls of the granular patch are given a recovery velocity such that the granular patch regains its original dimensions in $0.1$ seconds.  This recovery time should be small relative to the duration of the simulations, and in general it will also depend on the velocity of the vehicle, since the granular patch should completely recover its dimensions between subsequent relocations.
 
+To prevent the granular patch from colliding with the obstacles in the field, each body in the simulation is designated a family. Then within the simulation the user can designate which families collide with which other families. So the particles and their walls are all members of the same family. This family interacts only with the family containing the bodies of the HMMWV and not with the obstacle family. This framework allows the vehicle to approach and collide with the obstacles without the terrain actually experiencing that obstacle collision. Figure \ref{fig:relocationAroundObstacle} presents the vehicle on the granular patch maneuvering around an obstacle and though the terrain overlaps with the obstacle, no collision forces are calculated or applied between those families of bodies.
+
 Within the granular patch, the granular terrain was modeled by $55,931$ uniform spherical particles, with a micro-scale inter-particle sliding friction coefficient of $\mu = 0.8$, and particle diameter of $0.1$~m.  Previous studies~\cite{fleischmannetalGEGE2014} have shown that 
 a randomly packed assembly of as few as $3,000$ - $30,000$ uniform spheres will exhibit macro-scale bulk granular material yield behavior (due to inter-particle sliding) that closely matches the Lade-Duncan yield surface, which is a well-established yield criterion in the field of geomechanics, where the macro-scale friction angle $\phi$ for the bulk granular material can be determined as a function of the inter-particle friction coefficient $\mu$.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/aroundObstacle.png}
+	\caption{\small HMMWV navigating around obstacle, granular Patch does not collide with obstacles}
+	\label{fig:relocationAroundObstacle}
+\end{figure}
+
+Figure \ref{fig:relocationPics} presents the single granular patch used for all granular simulations in the presented experiments of this thesis. The granular terrain is colored based on the particle global z location so that blue particles are low and red particles are high. An improved alternative to this single relocating granular patch was explored as well in an attempt to both speed up simulation runtimes and allow for simulation of smaller particles. The explored method was instead of using a single large granular patch underneath the vehicle, four individual independent and smaller granular patches are simulated underneath each of the vehicle wheels. This concept is visualized in Figure \ref{fig:4Patch}. This concept would allow for a much smaller number of particles to be simulated since resources again are not being wasted for particles sitting too far away from the wheels. Each smaller patch works the same as the large single granular patch where they are provided a location on the body to follow. As that point on the body moves a certain distance towards any of the walls holding the small patch of particles together, particles near the opposite wall are relocated to in front of the closer wall, the walls shift and compress to account for the patch growth to prevent particle overlaps during relocation. To prevent particles from one wheel patch from colliding with particles from another wheel patch, bodies are designated as members of a family depending on which patch they were generated in. Particles then only collide with the walls, particles, and wheel that are members of its own family. This allows patches to overlap without actually colliding with each other. 
+
+This new concept was implemented in simulations to test its potential as a method for simulating granular terrain moving forward. Comparing the results of simulations using these four individual patches to those that used the single large patch, there were not significant differences in results or vehicle trajectories. The individual patches method even allowed for simulations with particles of diameter $0.05$~m without sacrificing larger amounts of time to perform these simulations. One note that supports the use of larger particles was even by reducing the particle size by that large of a factor, there was no real difference in vehicle performance. However, a concern with using these smaller patches was that there was a much more significant boundary effect each relocation step due to the smaller distance between the tire contact patch and the walls containing the particles. Figure \ref{fig:4Patch} presents a visualization of the four independent relocating patches explored. This concept shows promise but for consistency and more confidence in the fidelity of the simulation results, all recorded and presented simulations in this study use the single large relocating patch. The independent patches are considered for future research. 
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figs/4patch1.png}
+		\caption{\small Initial four relocating granular patches}   
+		\label{fig:4PatchA}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figs/4patch2.png}
+		\caption{\small Forward relocation step for the right wheel patches}   
+		\label{fig:4PatchB}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{Figs/4patch3.png}
+		\caption{\small Patches follow wheels as vehicle heading changes}   
+		\label{fig:4PatchC}
+	\end{subfigure}
+	\caption{\small Independent four granular relocating patches explored to improve simulation speeds, HMMWV chassis not visualized}
+	\label{fig:4Patch}
+\end{figure}
 
 Referring to Figure~10 of~\cite{fleischmannetalGEGE2014}, a randomly packed assembly of uniform spheres with an inter-particle friction coefficient of $\mu = 0.8$ will exhibit macro-scale yield behavior corresponding to a bulk granular material with a macro-scale friction angle between roughly $35^\circ \leq \phi \leq 40^\circ$ if particle rotation is allowed (6-DOF particles), or with a macro-scale friction angle between roughly $65^\circ \leq \phi \leq 70^\circ$ if particle rotation is prohibited (3-DOF particles).
 %
@@ -1052,7 +1091,7 @@ Rack/Tower LCD100-127V &
 1 \\
 \hhline{~~--}
 \multicolumn{2}{|c|}{} &
-Windows 8.1 Profesional 64Bit &
+Windows 8.1 Professional 64Bit &
 1\\
 \hhline{~~--}
 \multicolumn{2}{|c|}{} & 
@@ -1066,7 +1105,7 @@ Samsung S24D300H 24IN LCD Monitor &
 
 %% ============================================================
 
-\chapter{EXPERIMENTAL RESULTS AND DISCUSSION}\label{c:results}
+\chapter{FIRST EXPERIMENTAL RESULTS AND DISCUSSION}\label{c:results}
 
 \begin{figure}
 	\centering
@@ -1290,7 +1329,7 @@ The new force model developed in the previous section seeks to address this diff
 
 %% ============================================================
 
-\chapter{SECOND EXPERIMENT TO TEST NEW VEHICLE MODEL}\label{c:Exp2}
+\chapter{SECOND EXPERIMENTAL RESULTS TO TEST IMPROVED VEHICLE MODEL}\label{c:Exp2}
 
 \section{Experimental Setup}\label{s:ExpSetup2}
 
@@ -1454,17 +1493,37 @@ The results of this study are promising. Since the 2-DOF controller is able to n
 
 A newer control algorithm could be developed all together with the goal of navigating a vehicle on all sorts of terrains. If instead of using a constant speed internal vehicle model and searching for an optimal steering sequence only, a controller could search for an optimal steering and acceleration input. If this were the case then the terrain parameters would impose constraints on how quickly a vehicle could actually accelerate on the terrain thus constraining the search space and resulting in a much smarter granular terrain navigation controller. 
 
-Another avenue of research would be to explore improvements to the granular simulations developed in this study. To simulate granular terrain, in this study a novel relocating granular patch mechanism was developed that simulates a significant thickness of granular terrain underneath the vehicle at all times and relocates particles in front of the vehicle as it moves in any direction. This research would not have been feasible without the development of this mechanism, but as with any research topic there are further improvements that could help simulation speeds for these sorts of experiments. One possible improvement would be the implementation of periodic boundary conditions at the walls of the relocating patch to minimize any boundary effects at the tire ground contact patch.
+Another avenue of research would be to explore improvements to the granular simulations developed in this study. To simulate granular terrain, in this study a novel relocating granular patch mechanism was developed that simulates a significant thickness of granular terrain underneath the vehicle at all times and relocates particles in front of the vehicle as it moves in any direction. This research would not have been feasible without the development of this mechanism, but as with any research topic there are further improvements that could help simulation speeds for these sorts of experiments. One possible improvement would be the implementation of periodic boundary conditions at the walls of the relocating patch to minimize any boundary effects at the tire ground contact patch. The indpendent four granular patches described in this thesis as well could be explored and tested further as a method to improve simulation speeds. That combined with periodic boundary conditions could potentially result in a quick and robust method for simulating granular terrain. 
 
-Finally, the research performed here would benefit greatly from physical tests to compliment the results of this study. Insight would be gained relating to hardware and computational speeds necessary to implement this controller on a physical vehicle. 
 
-Overall the terramechanics field is a highly active and current area of research. The research performed in this study promotes the opportunity for many equally exciting research opportunities building off the results of this study.
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Figs/stuck.png}
+		\caption{{\small HMMWV stuck in terrain of 6-DOF particles}}   
+		\label{fig:stuck}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.49\columnwidth}
+		\centering
+		\includegraphics[width=\columnwidth]{Figs/HMMWV_spray.png}
+		\caption{\small HMMWV remains in initial location spinning wheels and spraying particles backwards}   
+		\label{fig:spray}
+	\end{subfigure}
+	\caption{\small HMMWV unable to make forward progress in 6-DOF particle field}
+	\label{fig:spinOut}
+\end{figure}
+
+Future research can explore the cases where the vehicle remained stuck in its initial location. This occurred when the terrain was modeled as full 6-DOF spheres instead of rotation restricted 3-DOF spheres. When simulations were performed to test vehicle performance on these rotating spheres with a macro-scale friction angle of $35^\circ-40^\circ$ which is typical of a wide range of dry natural and crushed sands, the vehicle initialized and dropped onto the terrain normally, but throttle commands simply resulted in the vehicle spinning its tires in place. The vehicle would make no forward progress and instead continue to spin its tires while launching particles backwards. This case is visualized in Figure \ref{fig:spinOut}. This behavior provides an interesting research topic. The issue of the vehicle being unable to move from this point can be attributed to four possible different reason. First, this method of modeling dry sand with 6-DOF particles is incorrect and therefore we are not accurately simulating dry sand. This is possible since particles are not actually smooth spheres but instead have coarser jagged geometries which would result in more rolling friction. Second, the vehicle tires are not modeled correctly and something other than rigid tires should be used. Third, the controller does not account for how much tractive capabilities the terrain provides and is simply failing to pull the vehicle out of the sand trap. Finally fourth, all of the modeling in this scenario is correct and this behavior is what one would actually experience if they attempted to drive a HMMWV on loose dry sand aggressively. Research devoted to modeling and simulating dry loose sands as well as developing a controller to navigate the vehicle out and along that terrain would be an important development in the terramechanics and controls community. 
+
+The research performed here would benefit greatly from physical tests to compliment the results of this study. Insight would be gained relating to hardware and computational speeds necessary to implement this controller on a physical vehicle. Overall the terramechanics field is a highly active and current area of research. The research performed in this study promotes the opportunity for many equally exciting research opportunities building off the results of this thesis.
 
 
 %% ============================================================
 \newpage
+\titlespacing{\chapter}{0in}{-20pt}{0.2in}
 \addcontentsline{toc}{chapter}{BIBLIOGRAPHY}
-%\chapter{BIBLIOGRAPHY}\label{s:bibliography}
 
 \begin{singlespacing}
 \bibliographystyle{unsrt}
