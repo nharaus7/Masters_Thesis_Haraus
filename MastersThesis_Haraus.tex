@@ -95,8 +95,13 @@
 {}
 
 \titlespacing{\chapter}{0in}{-20pt}{0.0in}
-\titlespacing{\section}{0in}{0.1in}{0.0in}
-\titlespacing{\subsection}{0in}{0.1in}{0.0in}
+\titlespacing{\section}{0in}{0in}{0.0in}
+\titlespacing{\subsection}{0in}{0in}{0.0in}
+
+%\addtocontents{toc}{\vskip -0.3in}
+\setlength\cftaftertoctitleskip{0.2in}
+\setlength\cftafterloftitleskip{0.2in}
+\setlength\cftafterlottitleskip{0.2in}
 
 \usepackage{setspace}
 \usepackage[pass,paperwidth=8.5in,paperheight=11in]{geometry}
@@ -1269,6 +1274,13 @@ i = \frac{\left(r\omega-v_t \right)}{r \omega}
 \section{New Simplified Force Model}\label{s:NewForce}. 
 The results in Chapter \ref{c:results} promote the need for a simple yet improved method of estimating the tire forces at the ground tire contact patch when a vehicle is operating on soft or granular terrain. A benefit to the Pacejka Magic Formula presented in Section \ref{s:Pacejka} is tire force calculation is backed by experimental data and the functions are shaped by a large number of experimentally determined parameters. However, the Magic Formula was derived for rigid ground applications only and does not succeed in estimating tire forces on granular terrain. The Magic Formula overestimates the lateral and longitudinal tire forces the vehicle experiences for any given slip angle as it does not take into account the shear strength of the soil. Therefore a simplified method of estimating the lateral tire forces at a tire ground contact patch was developed. This model is then used on the 2-DOF analytical vehicle model to estimate lateral tire forces and better predict vehicle trajectories on granular terrain.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{Figs/forceComparison.png}
+	\caption{\small Comparison of Magic Formula Lateral Force Prediction to New Force Model}  
+	\label{fig:newForceComparison}
+\end{figure}
+
 Rather than using Equation \ref{e:modifiedNormal} to calculate the normal stress at the tire ground contact patch, instead the normal load is calculated using Equations \ref{e:FrontLoad} and \ref{e:RearLoad}. Then the following assumptions are made. First, the tire ground contact patch is assumed to be square of side length $b$ which represents the width of the tire. Second, we assume a constant normal stress $\sigma$ throughout the contact patch such that the total force contribution from this normal stress is equal and opposite the normal load calculated in Equations \ref{e:FrontLoad} and \ref{e:RearLoad}. This leads to the simplified estimate of tire ground patch normal stress in Equation \ref{e:simplifiedNormal}. Third, we assume the tangential stress along the tire contact patch to be constant as well. These assumptions lead to the simplification of \ref{e:shearStress} and when we only consider the pure lateral slip case simplifies to Equation \ref{e:simplifiedShear}.
 %
 \begin{equation}\label{e:simplifiedNormal}
@@ -1278,19 +1290,6 @@ Rather than using Equation \ref{e:modifiedNormal} to calculate the normal stress
 \tau = [c+\sigma tan\phi][1 - e^{-r[\frac{b}{r} - sin\left(\frac{b}{r}\right)]/K}]
 \end{equation}
 
-Using the simplified constant stress relations and trigonometry, the lateral force is then calculated using Equation \ref{e:newLatForce}. Though this development is the result of a handful of simplifying assumptions, the results of the formulation make sense. A comparison between the force prediction as a function of slip as predicted by the Magic Formula is compared to this new force model prediction in Figure \ref{fig:newForceComparison}. Intuitively one would expect these sorts of results because on granular terrain the tire ground contact patch is subject to a much more limited shear strength than a tire operating on rigid ground. This new force model then takes into account the cohesion and internal friction angle of the granular terrain in a meaningful way. The new model predicts higher lateral forces when a more cohesive soil or terrain with higher friction angle is used and vice versa. 
-%
-\begin{equation}\label{e:newLatForce}
-F_y = -\tau b^2 sin\left(\alpha\right)
-\end{equation}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\columnwidth]{Figs/forceComparison.png}
-	\caption{\small Comparison of Magic Formula Lateral Force Prediction to New Force Model}  
-	\label{fig:newForceComparison}
-\end{figure}
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\columnwidth]{Figs/variedPhi.png}
@@ -1298,7 +1297,17 @@ F_y = -\tau b^2 sin\left(\alpha\right)
 	\label{fig:newForceComparison}
 \end{figure}
 
+Using the simplified constant stress relations and trigonometry, the lateral force is then calculated using Equation \ref{e:newLatForce}. Though this development is the result of a handful of simplifying assumptions, the results of the formulation make sense. A comparison between the force prediction as a function of slip as predicted by the Magic Formula is compared to this new force model prediction in Figure \ref{fig:newForceComparison}. Intuitively one would expect these sorts of results because on granular terrain the tire ground contact patch is subject to a much more limited shear strength than a tire operating on rigid ground. This new force model then takes into account the cohesion and internal friction angle of the granular terrain in a meaningful way. The new model predicts higher lateral forces when a more cohesive soil or terrain with higher friction angle is used and vice versa. 
+%
+\begin{equation}\label{e:newLatForce}
+F_y = -\tau b^2 sin\left(\alpha\right)
+\end{equation}
+
 \section{Open Loop Comparisons}\label{s:OpenLoop}
+
+To justify that the new force model better models the lateral ground interaction force between a tire and granular terrain, a set of open loop simulations were performed. In these simulations, the HMMWV was initialized at rest, quickly accelerated to 8.3 m/s, and continued at this speed until the simulation has run for 10 seconds. Then the vehicle undergoes the steering sequence presented in Figure \ref{fig:openSteer} which consists of the vehicle steering left with a steering angle of 10 degrees for 5 seconds followed by steering right at a steering angle of -10 degrees for another 5 seconds. In this open loop test we are only interested in the vehicle's trajectory for the last 10 seconds of the simulation so only this time frame is considered and shown in plots.
+
+Figure \ref{fig:openLoopmu} presents the resulting trajectories of 7 different open loop simulations run with this steering sequence with the parameters just discussed. One simulation was run on rigid flat ground while the other 6 were run on granular terrain consisting of non-rotating particles of inter-particle friction coefficients varying from $\mu$=0.66 to $\mu$=0.9. Lower values of $\mu$ were considered and tested, but these simulations resulted in the vehicle simply initializing and remaining stuck at the location where it started, constantly spinning its tires without making any forward progress. From these results it is shown that a vehicle operating on granular terrain will steer less sharply than the same vehicle operating on rigid ground undergoing the same steering sequence at the same speed. From these simulations we see there are clear differences in how a vehicle performs on rigid ground versus on granular terrain and this difference needs to be accounted for when attempting to model vehicle dynamic performance using simplified analytical equations. 
 
 \begin{figure}
 	\centering
@@ -1307,16 +1316,12 @@ F_y = -\tau b^2 sin\left(\alpha\right)
 	\label{fig:openSteer}
 \end{figure}
 
-To justify that the new force model better models the lateral ground interaction force between a tire and granular terrain, a set of open loop simulations were performed. In these simulations, the HMMWV was initialized at rest, quickly accelerated to 8.3 m/s, and continued at this speed until the simulation has run for 10 seconds. Then the vehicle undergoes the steering sequence presented in Figure \ref{fig:openSteer} which consists of the vehicle steering left with a steering angle of 10 degrees for 5 seconds followed by steering right at a steering angle of -10 degrees for another 5 seconds. In this open loop test we are only interested in the vehicle's trajectory for the last 10 seconds of the simulation so only this time frame is considered and shown in plots.
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\columnwidth]{Figs/trajectoryComparison_png.png}
 	\caption{\small Open Loop Trajectory of HMMWV over non-rotating granular terrains with different inter-particle friction coefficients $\mu$}  
 	\label{fig:openLoopmu}
 \end{figure}
-
-Figure \ref{fig:openLoopmu} presents the resulting trajectories of 7 different open loop simulations run with this steering sequence with the parameters just discussed. One simulation was run on rigid flat ground while the other 6 were run on granular terrain consisting of non-rotating particles of inter-particle friction coefficients varying from $\mu$=0.66 to $\mu$=0.9. Lower values of $\mu$ were considered and tested, but these simulations resulted in the vehicle simply initializing and remaining stuck at the location where it started, constantly spinning its tires without making any forward progress. From these results it is shown that a vehicle operating on granular terrain will steer less sharply than the same vehicle operating on rigid ground undergoing the same steering sequence at the same speed. From these simulations we see there are clear differences in how a vehicle performs on rigid ground versus on granular terrain and this difference needs to be accounted for when attempting to model vehicle dynamic performance using simplified analytical equations. 
 
 \begin{figure}
 	\centering
